@@ -27,7 +27,7 @@ namespace RPS_Game
             Player player2 = new Player(Console.ReadLine());
             while (player1.score != 2 && player2.score != 2)
             { // using while loop to run the rounds until one player reaches a score of 2.
-                player1.playerRPS = RPSGenerator(); // generate r/p/s to store into playerCurntround.
+                player1.playerRPS = RPSGenerator(); // generate r/p/s to store into playerRPS.
                 player2.playerRPS = RPSGenerator();
                 if (player1.playerRPS == "rock")
                 { // conditionals to check who won each round. If player one has a "rock"
