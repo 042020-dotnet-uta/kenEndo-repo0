@@ -6,6 +6,8 @@ namespace RPS_Game
     { // creating a player class to store player information.
         public string name; //string to store player name.
         public int score = 0; // int to store player wint count.
+        public string playerRPS; // string to store what player got from RPSGenerator(r/p/s).
+
         public Player(string name)
         { // constructor to assign player name to the string.
             this.name = name;
@@ -19,23 +21,22 @@ namespace RPS_Game
             int RoundNumber = 1; // int to store and update round number.
             int ties = 0; // int to store and update the number of ties between players.
             ArrayList roundResuelt = new ArrayList(); // arraylist to store all the round result of players.
-            string player1CurntRound, player2CurntRound; // string to store what player got from RPSGenerator(r/p/s).
             Console.WriteLine("Enter Player one name"); // prompting user to enter the player name on console.
             Player player1 = new Player(Console.ReadLine()); // storing the entered player name into player obj.
             Console.WriteLine("Enter Player two name");
             Player player2 = new Player(Console.ReadLine());
             while (player1.score != 2 && player2.score != 2)
             { // using while loop to run the rounds until one player reaches a score of 2.
-                player1CurntRound = RPSGenerator(); // generate r/p/s to store into playerCurntround.
-                player2CurntRound = RPSGenerator();
-                if (player1CurntRound == "rock")
+                player1.playerRPS = RPSGenerator(); // generate r/p/s to store into playerCurntround.
+                player2.playerRPS = RPSGenerator();
+                if (player1.playerRPS == "rock")
                 { // conditionals to check who won each round. If player one has a "rock"
-                    if (player2CurntRound == "paper")
+                    if (player2.playerRPS == "paper")
                     { // nested if statements to compare different result player2 will have with player1 having "rock"
                         roundResuelt.Add($"Round {RoundNumber} - {player1.name} chose rock, {player2.name} chose paper. - Player2 won"); // adds winner of the round to the array.
                         player2.score++; // adds a win count to player 2
                     }
-                    else if (player2CurntRound == "scissor")
+                    else if (player2.playerRPS == "scissor")
                     {
                         roundResuelt.Add($"Round {RoundNumber} - {player1.name} chose rock, {player2.name} chose scissor. - Player1 won");
                         player1.score++;
@@ -46,14 +47,14 @@ namespace RPS_Game
                         ties++; // adds a tie count 
                     }
                 }
-                else if (player1CurntRound == "paper")
+                else if (player1.playerRPS == "paper")
                 {
-                    if (player2CurntRound == "rock")
+                    if (player2.playerRPS == "rock")
                     {
                         roundResuelt.Add($"Round {RoundNumber} - {player1.name} chose paper, {player2.name} chose rock. - Player1 won");
                         player1.score++;
                     }
-                    else if (player2CurntRound == "scissor")
+                    else if (player2.playerRPS == "scissor")
                     {
                         roundResuelt.Add($"Round {RoundNumber} - {player1.name} chose paper, {player2.name} chose scissor. - Player2 won");
                         player2.score++;
@@ -66,12 +67,12 @@ namespace RPS_Game
                 }
                 else
                 {
-                    if (player2CurntRound == "rock")
+                    if (player2.playerRPS == "rock")
                     {
                         roundResuelt.Add($"Round {RoundNumber} - {player1.name} chose scissor, {player2.name} chose paper. - Player1 won");
                         player1.score++;
                     }
-                    else if (player2CurntRound == "scissor")
+                    else if (player2.playerRPS == "scissor")
                     {
                         roundResuelt.Add($"Round {RoundNumber} - {player1.name} chose scissor, {player2.name} chose rock. - Player2 won");
                         player2.score++;
