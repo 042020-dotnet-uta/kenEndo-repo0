@@ -18,17 +18,14 @@ namespace CodingChallenge
                 {
                     ss++; // adds 1 to the total count of sweet'nsalty
                     Console.WriteLine("sweet'nSalty");
-                    continue; // continue to move to the next number instead of going down the if chain.
                 }else if (i % 3 == 0) // if statement to display "sweet" instead of the number divisible by 3
                 {
                     sw++; //adds 1 to the total count of sweet
                     Console.WriteLine("sweet");
-                    continue;
                 }else if (i % 5 == 0) //if statement to display "salty" instead of the number divisible 5
                 {
                     sl++; //adds 1 to the total count of salty
                     Console.WriteLine("salty");
-                    continue;
                 }
                 else
                 {
