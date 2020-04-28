@@ -5,6 +5,7 @@ namespace RPS_Game
 {
     public class Round
     {
+        public int RoundId { get; set; }
         private Player winnner;
         public Player Winnner
         {

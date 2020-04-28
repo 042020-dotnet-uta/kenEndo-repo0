@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPS_Game", "RPS_Game\RPS_Game.csproj", "{1EB3D06E-94A8-4F89-A481-D1929A9435A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPS_Game", "RPS_Game\RPS_Game.csproj", "{1EB3D06E-94A8-4F89-A481-D1929A9435A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestProject1", "XUnitTestProject1\XUnitTestProject1.csproj", "{0380621F-6E0F-4D90-AE38-6FC1F0D24958}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{1EB3D06E-94A8-4F89-A481-D1929A9435A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EB3D06E-94A8-4F89-A481-D1929A9435A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EB3D06E-94A8-4F89-A481-D1929A9435A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0380621F-6E0F-4D90-AE38-6FC1F0D24958}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0380621F-6E0F-4D90-AE38-6FC1F0D24958}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0380621F-6E0F-4D90-AE38-6FC1F0D24958}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0380621F-6E0F-4D90-AE38-6FC1F0D24958}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

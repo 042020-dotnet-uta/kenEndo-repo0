@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Data.SQLite;
+using Project0Lib;
+
 
 namespace Project0
 {
@@ -8,6 +11,10 @@ namespace Project0
         {
             UserRegistration test = new UserRegistration();
             test.runRegistration();
+            UserLogin test1 = new UserLogin();
+            test1.runLogin();
         }
+
+
     }
 }

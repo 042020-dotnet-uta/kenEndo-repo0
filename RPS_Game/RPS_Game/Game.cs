@@ -9,11 +9,15 @@ namespace RPS_Game
 {
     public class Game
     {
-        private readonly ILogger _logger;
-        public Game(ILogger<Game> logger)
-        {
-            _logger = logger;
-        }
+        public int GameId { get; set; }
+        /*        private readonly ILogger _logger;
+                public Game(ILogger<Game> logger)
+                {
+                    _logger = logger;
+                }
+        */
+        RPS_DbContext db = new RPS_DbContext();
+
 
 
         public List<Round> Rounds = new List<Round>();
@@ -42,7 +46,7 @@ namespace RPS_Game
             get { return roundNumber; }
             set { roundNumber = value; }
         }
-        public void loggingTest()
+/*        public void loggingTest()
         {
             _logger.LogInformation("LogInformation = Hello. My name is Log LogInformation");
             _logger.LogWarning("LogWarning = At {time} Now I'm Loggy McLoggerton", DateTime.Now);
@@ -52,8 +56,12 @@ namespace RPS_Game
             _logger.LogTrace("Log Trace = Tracing my way back home.");//not printed to console
 
         }
-        public void playAGame(Player P1, Player P2)
+*/        public void playAGame(Player P1, Player P2)
         {
+
+
+
+
 
             Round round = null;
             while (P1.Wins != 2 && P2.Wins != 2)

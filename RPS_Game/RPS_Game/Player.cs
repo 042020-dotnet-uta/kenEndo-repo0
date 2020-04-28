@@ -4,6 +4,7 @@ namespace RPS_Game
 {
     public class Player
     { // creating a player class to store player information.
+        public int playerId { get; set; }
         private string name; //string to store player name.
         public String Name
         {
