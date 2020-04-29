@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Project0Lib
+namespace Project0
 {
     public class UserRegistration
     {
-            
+
         public void runRegistration()
         {
             Console.WriteLine("Please enter your first name");

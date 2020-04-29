@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.SQLite;
-using Project0Lib;
 
 
 namespace Project0

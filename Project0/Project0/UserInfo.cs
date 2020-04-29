@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Project0Lib
+namespace Project0
 {
-    public class UserInfo
-    {
-		public int UserId { get; set; }
-		private string _fName;
+	public class UserInfo
+	{
+		public int UserInfoId { get; set; } //PRIMARY KEY
+
+		private string _fName; //first name
 
 		public string fName
 		{
@@ -15,7 +16,7 @@ namespace Project0Lib
 			set { _fName = value; }
 		}
 
-		private string _lName;
+		private string _lName; //last name
 
 		public string lName
 		{
@@ -24,7 +25,7 @@ namespace Project0Lib
 		}
 
 
-		private string _userName;
+		private string _userName; //username
 
 		public string userName
 		{
@@ -33,7 +34,7 @@ namespace Project0Lib
 		}
 
 
-		private string _password;
+		private string _password; //password
 
 		public string password
 		{
@@ -41,6 +42,7 @@ namespace Project0Lib
 			set { _password = value; }
 		}
 
+		public UserInfo() { }
 
 		public UserInfo(string fname, string lname, string userName, string password) // constructor to store user information when instantiated
 		{
