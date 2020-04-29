@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="Database" Label="Project0DB.db" Category="Database" Group="Expanded" />
+    <Node Id="StoreItemInventories" Label="StoreItemInventories" Category="Table" Group="Collapsed" />
+    <Node Id="StoreItemInventories_StoreItemInventoryId" Label="StoreItemInventoryId" Category="Field Primary" Description="bigint" />
+    <Node Id="StoreItemInventories_itemInventory" Label="itemInventory" Category="Field" Description="bigint" />
+    <Node Id="StoreItems" Label="StoreItems" Category="Table" Group="Collapsed" />
+    <Node Id="StoreItems_StoreItemId" Label="StoreItemId" Category="Field Primary" Description="bigint" />
+    <Node Id="StoreItems_StoreLocationId" Label="StoreLocationId" Category="Field Foreign" Description="bigint" />
+    <Node Id="StoreItems_StoreItemInventoryId" Label="StoreItemInventoryId" Category="Field Foreign" Description="bigint" />
+    <Node Id="StoreItems_itemName" Label="itemName" Category="Field Optional" Description="text" />
+    <Node Id="StoreItems_itemPrice" Label="itemPrice" Category="Field" Description="real" />
+    <Node Id="StoreLocations" Label="StoreLocations" Category="Table" Group="Collapsed" />
+    <Node Id="StoreLocations_StoreLocationId" Label="StoreLocationId" Category="Field Primary" Description="bigint" />
+    <Node Id="StoreLocations_Location" Label="Location" Category="Field Optional" Description="text" />
+    <Node Id="UserInfos" Label="UserInfos" Category="Table" Group="Collapsed" />
+    <Node Id="UserInfos_UserInfoId" Label="UserInfoId" Category="Field Primary" Description="bigint" />
+    <Node Id="UserInfos_fName" Label="fName" Category="Field Optional" Description="text" />
+    <Node Id="UserInfos_lName" Label="lName" Category="Field Optional" Description="text" />
+    <Node Id="UserInfos_userName" Label="userName" Category="Field Optional" Description="text" />
+    <Node Id="UserInfos_password" Label="password" Category="Field Optional" Description="text" />
+    <Node Id="UserOrders" Label="UserOrders" Category="Table" Group="Collapsed" />
+    <Node Id="UserOrders_UserOrderId" Label="UserOrderId" Category="Field Primary" Description="bigint" />
+    <Node Id="UserOrders_UserInfoId" Label="UserInfoId" Category="Field Foreign" Description="bigint" />
+    <Node Id="UserOrders_StoreItemId" Label="StoreItemId" Category="Field Foreign" Description="bigint" />
+    <Node Id="UserOrders_orderQuantity" Label="orderQuantity" Category="Field" Description="bigint" />
+    <Node Id="UserOrders_timeStamp" Label="timeStamp" Category="Field" Description="text" />
+  </Nodes>
+  <Links>
+    <Link Source="Database" Target="StoreItemInventories" Category="Contains" />
+    <Link Source="StoreItemInventories" Target="StoreItemInventories_StoreItemInventoryId" Category="Contains" />
+    <Link Source="StoreItemInventories" Target="StoreItemInventories_itemInventory" Category="Contains" />
+    <Link Source="Database" Target="StoreItems" Category="Contains" />
+    <Link Source="StoreItems" Target="StoreItems_StoreItemId" Category="Contains" />
+    <Link Source="StoreItems" Target="StoreItems_StoreLocationId" Category="Contains" />
+    <Link Source="StoreItems" Target="StoreItems_StoreItemInventoryId" Category="Contains" />
+    <Link Source="StoreItems" Target="StoreItems_itemName" Category="Contains" />
+    <Link Source="StoreItems" Target="StoreItems_itemPrice" Category="Contains" />
+    <Link Source="StoreItems_StoreLocationId" Target="StoreLocations_StoreLocationId" Label="FK_StoreItems_0_0" Category="Foreign Key" />
+    <Link Source="StoreItems_StoreItemInventoryId" Target="StoreItemInventories_StoreItemInventoryId" Label="FK_StoreItems_1_0" Category="Foreign Key" />
+    <Link Source="Database" Target="StoreLocations" Category="Contains" />
+    <Link Source="StoreLocations" Target="StoreLocations_StoreLocationId" Category="Contains" />
+    <Link Source="StoreLocations" Target="StoreLocations_Location" Category="Contains" />
+    <Link Source="Database" Target="UserInfos" Category="Contains" />
+    <Link Source="UserInfos" Target="UserInfos_UserInfoId" Category="Contains" />
+    <Link Source="UserInfos" Target="UserInfos_fName" Category="Contains" />
+    <Link Source="UserInfos" Target="UserInfos_lName" Category="Contains" />
+    <Link Source="UserInfos" Target="UserInfos_userName" Category="Contains" />
+    <Link Source="UserInfos" Target="UserInfos_password" Category="Contains" />
+    <Link Source="Database" Target="UserOrders" Category="Contains" />
+    <Link Source="UserOrders" Target="UserOrders_UserOrderId" Category="Contains" />
+    <Link Source="UserOrders" Target="UserOrders_UserInfoId" Category="Contains" />
+    <Link Source="UserOrders" Target="UserOrders_StoreItemId" Category="Contains" />
+    <Link Source="UserOrders" Target="UserOrders_orderQuantity" Category="Contains" />
+    <Link Source="UserOrders" Target="UserOrders_timeStamp" Category="Contains" />
+    <Link Source="UserOrders_UserInfoId" Target="UserInfos_UserInfoId" Label="FK_UserOrders_0_0" Category="Foreign Key" />
+    <Link Source="UserOrders_StoreItemId" Target="StoreItems_StoreItemId" Label="FK_UserOrders_1_0" Category="Foreign Key" />
+  </Links>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="Table" ValueLabel="True">
+      <Condition Expression="HasCategory('Table')" />
+      <Setter Property="Background" Value="#FFC0C0C0" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Schema" ValueLabel="True">
+      <Condition Expression="HasCategory('Schema')" />
+      <Setter Property="Background" Value="#FF7F9169" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field Primary" ValueLabel="True">
+      <Condition Expression="HasCategory('Field Primary')" />
+      <Setter Property="Background" Value="#FF008000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field Optional" ValueLabel="True">
+      <Condition Expression="HasCategory('Field Optional')" />
+      <Setter Property="Background" Value="#FF808040" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field Foreign" ValueLabel="True">
+      <Condition Expression="HasCategory('Field Foreign')" />
+      <Setter Property="Background" Value="#FF8080FF" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Field" ValueLabel="True">
+      <Condition Expression="HasCategory('Field')" />
+      <Setter Property="Background" Value="#FFC0A000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Database" ValueLabel="True">
+      <Condition Expression="HasCategory('Database')" />
+      <Setter Property="Background" Value="#FFFFFFFF" />
+    </Style>
+  </Styles>
+</DirectedGraph>

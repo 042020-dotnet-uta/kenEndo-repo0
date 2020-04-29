@@ -8,8 +8,8 @@ namespace Project0
     {
         static void Main(string[] args)
         {
-            UserRegistration test = new UserRegistration();
-            test.runRegistration();
+            //UserRegistration test = new UserRegistration();
+            //test.runRegistration();
             UserLogin test1 = new UserLogin();
             test1.runLogin();
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Project0
 {
@@ -39,6 +40,18 @@ namespace Project0
                     Console.ReadLine();
                     Console.Clear();
                     //need a function here to add this user class to the database
+                    try
+                    {
+                        using (var db = new AppDbContext())
+                        {
+                            UserInfo u = db.Add(user).Entity;
+                            db.SaveChanges();
+                        }
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e.InnerException.ToString());
+                    }
                 }
                 else
                 {
