@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Reflection;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project0
 {
 	public class StoreItem
 	{
 		public int StoreItemId { get; set; } //PRIMARY KEY
-
+		//public Nullable<int> StoreLocationId { get; set; }
 		public virtual StoreLocation StoreLocation { get; set; } //RELATION TO STORELOCATION
-
-		public virtual StoreItemInventory StoreItemInventory { get; set; } //RELATION TO STOREITEMINVENTORY
-
+		public virtual StoreItemInventory StoreItemInventory { get; set; }
+		
 		private string _itemName; //name of the item
 
 		public string itemName 

@@ -16,6 +16,51 @@ namespace Project0.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.3");
 
+            modelBuilder.Entity("Project0.Properties.UserOrderItem", b =>
+                {
+                    b.Property<int>("UserOrderItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("StoreItemId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("UserOrderId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("UserOrderItemId");
+
+                    b.HasIndex("StoreItemId");
+
+                    b.HasIndex("UserOrderId");
+
+                    b.ToTable("UserOrderItems");
+                });
+
+            modelBuilder.Entity("Project0.Properties.UserOrderQuantity", b =>
+                {
+                    b.Property<int>("UserOrderQuantityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("StoreItemId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("UserOrderId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("orderQuantity")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("UserOrderQuantityId");
+
+                    b.HasIndex("StoreItemId");
+
+                    b.HasIndex("UserOrderId");
+
+                    b.ToTable("UserOrderQuantities");
+                });
+
             modelBuilder.Entity("Project0.StoreItem", b =>
                 {
                     b.Property<int>("StoreItemId")
@@ -100,13 +145,7 @@ namespace Project0.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("StoreItemId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int?>("UserInfoId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("orderQuantity")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("timeStamp")
@@ -114,30 +153,46 @@ namespace Project0.Migrations
 
                     b.HasKey("UserOrderId");
 
-                    b.HasIndex("StoreItemId");
-
                     b.HasIndex("UserInfoId");
 
                     b.ToTable("UserOrders");
                 });
 
-            modelBuilder.Entity("Project0.StoreItem", b =>
-                {
-                    b.HasOne("Project0.StoreItemInventory", "StoreItemInventory")
-                        .WithMany()
-                        .HasForeignKey("StoreItemInventoryId");
-
-                    b.HasOne("Project0.StoreLocation", "StoreLocation")
-                        .WithMany("StoreItem")
-                        .HasForeignKey("StoreLocationId");
-                });
-
-            modelBuilder.Entity("Project0.UserOrder", b =>
+            modelBuilder.Entity("Project0.Properties.UserOrderItem", b =>
                 {
                     b.HasOne("Project0.StoreItem", "StoreItem")
                         .WithMany()
                         .HasForeignKey("StoreItemId");
 
+                    b.HasOne("Project0.UserOrder", "UserOrder")
+                        .WithMany("UserOrderItems")
+                        .HasForeignKey("UserOrderId");
+                });
+
+            modelBuilder.Entity("Project0.Properties.UserOrderQuantity", b =>
+                {
+                    b.HasOne("Project0.StoreItem", "StoreItem")
+                        .WithMany()
+                        .HasForeignKey("StoreItemId");
+
+                    b.HasOne("Project0.UserOrder", "UserOrder")
+                        .WithMany("UserOrderQuantity")
+                        .HasForeignKey("UserOrderId");
+                });
+
+            modelBuilder.Entity("Project0.StoreItem", b =>
+                {
+                    b.HasOne("Project0.StoreItemInventory", "StoreItemInventory")
+                        .WithMany("StoreItem")
+                        .HasForeignKey("StoreItemInventoryId");
+
+                    b.HasOne("Project0.StoreLocation", "StoreLocation")
+                        .WithMany("StoreItems")
+                        .HasForeignKey("StoreLocationId");
+                });
+
+            modelBuilder.Entity("Project0.UserOrder", b =>
+                {
                     b.HasOne("Project0.UserInfo", "UserInfo")
                         .WithMany()
                         .HasForeignKey("UserInfoId");

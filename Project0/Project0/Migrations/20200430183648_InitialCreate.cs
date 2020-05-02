@@ -84,24 +84,69 @@ namespace Project0.Migrations
                     UserOrderId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UserInfoId = table.Column<int>(nullable: true),
-                    StoreItemId = table.Column<int>(nullable: true),
-                    orderQuantity = table.Column<int>(nullable: false),
                     timeStamp = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserOrders", x => x.UserOrderId);
                     table.ForeignKey(
-                        name: "FK_UserOrders_StoreItems_StoreItemId",
+                        name: "FK_UserOrders_UserInfos_UserInfoId",
+                        column: x => x.UserInfoId,
+                        principalTable: "UserInfos",
+                        principalColumn: "UserInfoId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserOrderItems",
+                columns: table => new
+                {
+                    UserOrderItemId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    StoreItemId = table.Column<int>(nullable: true),
+                    UserOrderId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserOrderItems", x => x.UserOrderItemId);
+                    table.ForeignKey(
+                        name: "FK_UserOrderItems_StoreItems_StoreItemId",
                         column: x => x.StoreItemId,
                         principalTable: "StoreItems",
                         principalColumn: "StoreItemId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UserOrders_UserInfos_UserInfoId",
-                        column: x => x.UserInfoId,
-                        principalTable: "UserInfos",
-                        principalColumn: "UserInfoId",
+                        name: "FK_UserOrderItems_UserOrders_UserOrderId",
+                        column: x => x.UserOrderId,
+                        principalTable: "UserOrders",
+                        principalColumn: "UserOrderId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserOrderQuantities",
+                columns: table => new
+                {
+                    UserOrderQuantityId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserOrderId = table.Column<int>(nullable: true),
+                    StoreItemId = table.Column<int>(nullable: true),
+                    orderQuantity = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserOrderQuantities", x => x.UserOrderQuantityId);
+                    table.ForeignKey(
+                        name: "FK_UserOrderQuantities_StoreItems_StoreItemId",
+                        column: x => x.StoreItemId,
+                        principalTable: "StoreItems",
+                        principalColumn: "StoreItemId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserOrderQuantities_UserOrders_UserOrderId",
+                        column: x => x.UserOrderId,
+                        principalTable: "UserOrders",
+                        principalColumn: "UserOrderId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -116,9 +161,24 @@ namespace Project0.Migrations
                 column: "StoreLocationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserOrders_StoreItemId",
-                table: "UserOrders",
+                name: "IX_UserOrderItems_StoreItemId",
+                table: "UserOrderItems",
                 column: "StoreItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserOrderItems_UserOrderId",
+                table: "UserOrderItems",
+                column: "UserOrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserOrderQuantities_StoreItemId",
+                table: "UserOrderQuantities",
+                column: "StoreItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserOrderQuantities_UserOrderId",
+                table: "UserOrderQuantities",
+                column: "UserOrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserOrders_UserInfoId",
@@ -129,19 +189,25 @@ namespace Project0.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UserOrders");
+                name: "UserOrderItems");
+
+            migrationBuilder.DropTable(
+                name: "UserOrderQuantities");
 
             migrationBuilder.DropTable(
                 name: "StoreItems");
 
             migrationBuilder.DropTable(
-                name: "UserInfos");
+                name: "UserOrders");
 
             migrationBuilder.DropTable(
                 name: "StoreItemInventories");
 
             migrationBuilder.DropTable(
                 name: "StoreLocations");
+
+            migrationBuilder.DropTable(
+                name: "UserInfos");
         }
     }
 }

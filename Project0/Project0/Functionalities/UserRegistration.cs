@@ -44,7 +44,7 @@ namespace Project0
                     {
                         using (var db = new AppDbContext())
                         {
-                            UserInfo u = db.Add(user).Entity;
+                            db.Add(user);
                             db.SaveChanges();
                         }
                     }

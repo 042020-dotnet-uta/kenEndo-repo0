@@ -8,8 +8,16 @@ namespace Project0
     public class UserLogin
     {
         private string _userName;
+
+        public string userName
+        {
+            get { return _userName; }
+            set { _userName = value; }
+        }
+        UserInfo check;
+
         private string _password;
-        public void runLogin()
+        public UserInfo runLogin()
         {
             askInfo();
             //need to make code to compare inputted username/password with the registered user info in the database.
@@ -18,18 +26,20 @@ namespace Project0
             {
                 try
                 {
-                    var check = db.UserInfos.First(u => u.userName == _userName && u.password == _password);
+                    check = db.UserInfos.First(u => u.userName == _userName && u.password == _password);
+                    Console.WriteLine("Success!\n Press Enter to go to the store page");
+                    Console.ReadLine();
+                    Console.Clear();
+                    return check;
                 }
                 catch(Exception e)
                 {
-                    Console.WriteLine("Wrong username or password, please try again");
+                    Console.WriteLine("Wrong username or password, please enter try again");
+                    Console.ReadLine();
                     Console.Clear();
-                    runLogin();
+                    return runLogin();
                 }                
             }
-            Console.WriteLine("Success!\n Press Enter to go to the store page");
-            Console.ReadLine();
-            Console.Clear();
             //direct user to the store location page where user picks location.
         }
 
@@ -37,7 +47,7 @@ namespace Project0
         public void askInfo()
         {
             Console.WriteLine("Please enter your username");
-            _userName = Console.ReadLine();
+            userName = Console.ReadLine();
             Console.WriteLine("Please enter your password");
             _password = Console.ReadLine();
         }

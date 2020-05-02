@@ -7,7 +7,7 @@ namespace Project0
 	public class StoreLocation
 	{
 		public int StoreLocationId { get; set; } //PRIMARY KEY
-		public virtual List<StoreItem> StoreItem { get; set; } //RELATION TO STOREITEM
+		public virtual ICollection<StoreItem> StoreItems { get; set; } //RELATION TO STOREITEM
 
 		private string _Location;
 
@@ -16,5 +16,10 @@ namespace Project0
 			get { return _Location; }
 			set { _Location = value; }
 		}
-	}
+
+        public static implicit operator StoreLocation(int v)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

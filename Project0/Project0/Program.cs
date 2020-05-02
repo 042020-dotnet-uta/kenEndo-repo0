@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Project0.Functionalities;
+using System;
 using System.Data.SQLite;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 
 namespace Project0
@@ -8,12 +12,14 @@ namespace Project0
     {
         static void Main(string[] args)
         {
+            
             //UserRegistration test = new UserRegistration();
             //test.runRegistration();
-            UserLogin test1 = new UserLogin();
-            test1.runLogin();
+            
+            OrderFunc test3 = new OrderFunc();
+            test3.startOrder();
+
+
         }
-
-
     }
 }

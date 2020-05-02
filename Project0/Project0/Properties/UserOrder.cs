@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Project0.Properties;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Project0
@@ -7,18 +9,15 @@ namespace Project0
     public class UserOrder
     {
         public int UserOrderId { get; set; } //PRIMARY KEY
+/*        public int UserInfoId { get; set; }
 
-        public UserInfo UserInfo { get; set; } //RELATION TO USERINFO
+        [ForeignKey("UserInfoId")]
+*/        public virtual UserInfo UserInfo { get; set; } //RELATION TO USERINFO
 
-        public StoreItem StoreItem { get; set; } //RELATION TO STOREITEM
+        public virtual ICollection<UserOrderItem> UserOrderItems { get; set; } //RELATION TO STOREITEM
 
-        private int _orderQuantity;
+        public virtual ICollection<UserOrderQuantity> UserOrderQuantity{ get; set; } //RELATION TO USERORDERQUANTITY
 
-        public int orderQuantity //order quantity
-        {
-            get { return _orderQuantity; }
-            set { _orderQuantity = value; }
-        }
 
         private DateTime _timeStamp; //time stamp of order
 

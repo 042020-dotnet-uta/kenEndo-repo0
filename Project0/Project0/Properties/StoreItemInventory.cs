@@ -7,6 +7,7 @@ namespace Project0
 	public class StoreItemInventory
 	{
 		public int StoreItemInventoryId { get; set; } //PRIMARY KEY
+		public virtual List<StoreItem> StoreItem { get; set; }//RELATION TO STOREITEM
 
 		private int _itemInventory; //inventory of item
 
