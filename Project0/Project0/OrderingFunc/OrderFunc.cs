@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Project0.Properties;
-using Project0;
+using Project0.RegiAndLoginFunc;
 using System.Linq;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore;
 
-namespace Project0.Functionalities
+namespace Project0.OrderingFunc
 {
     /// <summary>
     /// Class in charge of running the main functionality. Instantiates class for user login.
@@ -27,12 +25,12 @@ namespace Project0.Functionalities
         bool loopConditionForQuantity = true;
         bool ifDoesntExist = true;
 
-        public void startOrder() //method to run UserLogin, DisplayFunc, and Ordering
+        public void StartOrder() //method to run UserLogin, DisplayFunc, and Ordering
         {
             UserLogin test1 = new UserLogin();
             currentUser = test1.runLogin();
             DisplayFunc test2 = new DisplayFunc();
-            currentStore = test2.seeStores();
+            currentStore = test2.SeeStores();
             ordering();
         }
         /// <summary>
@@ -66,7 +64,7 @@ namespace Project0.Functionalities
                     {
                         Console.WriteLine($"How many would you like to take home?");
                         if (int.TryParse(Console.ReadLine(), out enteredQuantity)
-                            && enteredQuantity < userPickedItemInventory
+                            && enteredQuantity <= userPickedItemInventory
                             && enteredQuantity > 0) //check if user entered quantity is a number, below the store inventory, and above 0
                         {
                             newInventory = userPickedItemInventory - enteredQuantity; //store the updated inventory of pet after purchase

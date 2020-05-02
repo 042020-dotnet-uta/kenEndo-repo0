@@ -5,15 +5,15 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
-namespace Project0.Functionalities
+namespace Project0.OrderingFunc
 {
     class DisplayFunc
     {
-       public List<StoreItem> seeStores()
+       public List<StoreItem> SeeStores()
         {
             DisplayLocations test = new DisplayLocations();
-            test.displayingLocation();
-            List<StoreItem> selectedStore = test.selectingLocation();
+            test.DisplayingLocation();
+            List<StoreItem> selectedStore = test.SelectingLocation();
             return selectedStore;
         }
     }
@@ -33,7 +33,7 @@ namespace Project0.Functionalities
        /// displayingLocation is a method in DisplayLocation class that displays all store 
        /// location from StoreLocations table.
        /// </summary>
-        public void displayingLocation() 
+        public void DisplayingLocation() 
         { 
             using(var db = new AppDbContext())
             {
@@ -49,7 +49,7 @@ namespace Project0.Functionalities
         /// <summary>
         /// selectingLocation method displays all the items from the location selected by user in displayingLocation method.
         /// </summary>
-        public List<StoreItem> selectingLocation()
+        public List<StoreItem> SelectingLocation()
         {
             Console.WriteLine("Please enter the number(1~5) of location you would like to shop");
             string input = Console.ReadLine();
@@ -75,7 +75,7 @@ namespace Project0.Functionalities
             else
             {
                 Console.WriteLine("\nIncorrect input please try again");
-                selectingLocation();
+                SelectingLocation();
             }
             return storeItems;
         }

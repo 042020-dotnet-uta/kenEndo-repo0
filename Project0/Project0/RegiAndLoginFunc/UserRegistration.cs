@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-namespace Project0
+namespace Project0.RegiAndLoginFunc
 {
     public class UserRegistration
     {

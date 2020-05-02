@@ -9,11 +9,12 @@ namespace Project0
     public class UserOrder
     {
         public int UserOrderId { get; set; } //PRIMARY KEY
-/*        public int UserInfoId { get; set; }
+        /*        public int UserInfoId { get; set; }
 
-        [ForeignKey("UserInfoId")]
-*/        public virtual UserInfo UserInfo { get; set; } //RELATION TO USERINFO
-
+                [ForeignKey("UserInfoId")]
+                */
+        public virtual UserInfo UserInfo { get; set; } //RELATION TO USERINFO
+                
         public virtual ICollection<UserOrderItem> UserOrderItems { get; set; } //RELATION TO STOREITEM
 
         public virtual ICollection<UserOrderQuantity> UserOrderQuantity{ get; set; } //RELATION TO USERORDERQUANTITY
