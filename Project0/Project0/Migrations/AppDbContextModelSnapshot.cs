@@ -145,6 +145,9 @@ namespace Project0.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("StoreLocationId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int?>("UserInfoId")
                         .HasColumnType("INTEGER");
 
@@ -152,6 +155,8 @@ namespace Project0.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("UserOrderId");
+
+                    b.HasIndex("StoreLocationId");
 
                     b.HasIndex("UserInfoId");
 
@@ -193,6 +198,10 @@ namespace Project0.Migrations
 
             modelBuilder.Entity("Project0.UserOrder", b =>
                 {
+                    b.HasOne("Project0.StoreLocation", "StoreLocation")
+                        .WithMany()
+                        .HasForeignKey("StoreLocationId");
+
                     b.HasOne("Project0.UserInfo", "UserInfo")
                         .WithMany()
                         .HasForeignKey("UserInfoId");

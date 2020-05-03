@@ -14,6 +14,7 @@ namespace Project0
                 [ForeignKey("UserInfoId")]
                 */
         public virtual UserInfo UserInfo { get; set; } //RELATION TO USERINFO
+        public virtual StoreLocation StoreLocation { get; set; } //RELATION TO LOCATION
                 
         public virtual ICollection<UserOrderItem> UserOrderItems { get; set; } //RELATION TO STOREITEM
 

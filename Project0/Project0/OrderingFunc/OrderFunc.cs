@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using Project0.Properties;
 using Project0.RegiAndLoginFunc;
+using Project0.NavigationFunc;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,9 +15,7 @@ namespace Project0.OrderingFunc
     /// </summary>
     class OrderFunc
     {
-        UserInfo currentUser;
         StoreItem userPickedItem;
-        List<StoreItem> currentStore;
         int newInventory = 0;
         int enteredQuantity = 0;
         int userPickedItemInventory = 0;
@@ -27,10 +25,8 @@ namespace Project0.OrderingFunc
 
         public void StartOrder() //method to run UserLogin, DisplayFunc, and Ordering
         {
-            UserLogin test1 = new UserLogin();
-            currentUser = test1.runLogin();
             DisplayFunc test2 = new DisplayFunc();
-            currentStore = test2.SeeStores();
+            test2.SeeStores();
             ordering();
         }
         /// <summary>
@@ -75,12 +71,16 @@ namespace Project0.OrderingFunc
                             Console.WriteLine("The entered amount exceeds our store inventory, please try again."); //restart the while loop because the conditional 'loopConditionForQuantity' is still true
                         }
                     }
-                    var currentUser1 = db.UserInfos.ToList().Find(x => x.UserInfoId == currentUser.UserInfoId); //store the current user information
-
+                    var currentUser1 = db.UserInfos.ToList().Find(x => x.userName == UserLogin._userName);
+                    //var currentUser1 = db.UserInfos.ToList().Find(x => x.UserInfoId == currentUser.UserInfoId); //store the current user information
+                    var currentStore1 = db.StoreItems.ToList().Find(x => x.StoreItemId == userPickedItem.StoreItemId); //store the current item id
+                    var currentLocation = db.StoreItems.Include(x => x.StoreLocation).ToList()
+                        .Find(x => x.StoreItemId == userPickedItem.StoreItemId).StoreLocation; //store the current store location
                     if (ifDoesntExist) //if statement to create user order only once. once created bool value are assigned negative.
                     {
                         UserOrder userOrder = new UserOrder //create a new order
                         {
+                            StoreLocation = currentLocation,
                             UserInfo = currentUser1, //store current user information
                             timeStamp = DateTime.Now //store time stamp of this new order
                         };
@@ -89,7 +89,6 @@ namespace Project0.OrderingFunc
                         ifDoesntExist = false;
                     }
                     var currentUserOrder = db.UserOrders.ToList().Last(); //store the current order id
-                    var currentStore1 = db.StoreItems.ToList().Find(x => x.StoreItemId == userPickedItem.StoreItemId); //store the current item id
                     UserOrderItem userOrderItem = new UserOrderItem //create a new item order obj
                     {
                         StoreItem = currentStore1,
@@ -104,7 +103,8 @@ namespace Project0.OrderingFunc
                         orderQuantity = enteredQuantity
                     };
                     db.Add(userOrderQuantity); //add a user order quantity entity to the database
-                    var updateInventory = db.StoreItemInventories.First(x => x.StoreItemInventoryId == userPickedItem.StoreItemInventory.StoreItemInventoryId);
+                    var updateInventory = db.StoreItemInventories
+                        .First(x => x.StoreItemInventoryId == userPickedItem.StoreItemInventory.StoreItemInventoryId);
                     updateInventory.itemInventory = newInventory; //update the new store inventory of pet in database
                     db.SaveChanges();
 
@@ -119,7 +119,8 @@ namespace Project0.OrderingFunc
                     {
                         anotherBuy = false; //exits the main 'anotherBuy' while loop
                     }
-                    Console.WriteLine("end of program");
+                    MainNavigation test7 = new MainNavigation();
+                    test7.WhereToNavigation();
                 }
             }
         }

@@ -1,5 +1,5 @@
 ﻿using Project0.OrderingFunc;
-
+using Project0.RegiAndLoginFunc;
 using System;
 using System.Data.SQLite;
 using System.Collections.Generic;
@@ -13,17 +13,8 @@ namespace Project0
     {
         static void Main(string[] args)
         {
-
-            //UserRegistration test = new UserRegistration();
-            //test.runRegistration();
-
-            //OrderFunc test3 = new OrderFunc();
-            //test3.StartOrder();
-
-            DisplayAllUser test4 = new DisplayAllUser();
-            test4.DisplayItAll();
-
-
+            WelcomeNavigation test0 = new WelcomeNavigation();
+            test0.Welcome();
         }
     }
 }

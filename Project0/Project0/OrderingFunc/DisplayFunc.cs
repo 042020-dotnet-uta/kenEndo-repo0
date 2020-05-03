@@ -9,12 +9,12 @@ namespace Project0.OrderingFunc
 {
     class DisplayFunc
     {
-       public List<StoreItem> SeeStores()
+       public void SeeStores()
         {
             DisplayLocations test = new DisplayLocations();
             test.DisplayingLocation();
-            List<StoreItem> selectedStore = test.SelectingLocation();
-            return selectedStore;
+            test.SelectingLocation();
+
         }
     }
     /// <summary>
@@ -29,6 +29,7 @@ namespace Project0.OrderingFunc
         /// </summary>
         List<StoreLocation> locations; 
         public List<StoreItem> storeItems;
+        int input1 = 0;
        /// <summary>
        /// displayingLocation is a method in DisplayLocation class that displays all store 
        /// location from StoreLocations table.
@@ -37,6 +38,7 @@ namespace Project0.OrderingFunc
         { 
             using(var db = new AppDbContext())
             {
+                Console.Clear();
                 Console.WriteLine("\n**************************************************");
                 locations = db.StoreLocations.ToList(); //stores Storelocation table names into locations list
                 foreach(StoreLocation x in locations) //prints all shop locations onto the console
@@ -49,12 +51,12 @@ namespace Project0.OrderingFunc
         /// <summary>
         /// selectingLocation method displays all the items from the location selected by user in displayingLocation method.
         /// </summary>
-        public List<StoreItem> SelectingLocation()
+        public void SelectingLocation()
         {
             Console.WriteLine("Please enter the number(1~5) of location you would like to shop");
             string input = Console.ReadLine();
             Console.WriteLine("\n**************************************************");
-            if((int.TryParse(input, out int input1)) && input1<=5 && input1 >= 1) //input validation to make sure user entered a number between 1 - 5
+            if((int.TryParse(input, out input1)) && input1<=5 && input1 >= 1) //input validation to make sure user entered a number between 1 - 5
             {
                 Console.Clear();
                 using (var db = new AppDbContext())
@@ -64,10 +66,10 @@ namespace Project0.OrderingFunc
                     var selectedLocation = db.StoreLocations
                         .First(x => x.StoreLocationId == input1);
                     Console.WriteLine("\n**************************************************");
-                    Console.WriteLine($"{selectedLocation.Location} Pet Shop!\n ");
+                    Console.WriteLine($"\t\t{selectedLocation.Location} Pet Shop!\n ");
                    foreach(StoreItem storeitem in storeItems)
                     {
-                        Console.WriteLine(storeitem.StoreItemId + ". " + storeitem.itemName + "\t$"   + storeitem.itemPrice + "\tCount:" + storeitem.StoreItemInventory.itemInventory);
+                        Console.WriteLine($"{storeitem.StoreItemId}.{storeitem.itemName}\t\t\t${storeitem.itemPrice}\tCount:{storeitem.StoreItemInventory.itemInventory}");
                     }
                     Console.WriteLine("**************************************************");
                 }
@@ -77,10 +79,6 @@ namespace Project0.OrderingFunc
                 Console.WriteLine("\nIncorrect input please try again");
                 SelectingLocation();
             }
-            return storeItems;
         }
-
     }
-
-
 }

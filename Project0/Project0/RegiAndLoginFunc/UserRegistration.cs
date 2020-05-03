@@ -10,25 +10,26 @@ namespace Project0.RegiAndLoginFunc
 
         public void runRegistration()
         {
-            Console.WriteLine("Please enter your first name");
+            Console.Clear();
+            Console.WriteLine("\nPlease enter your first name");
             string fname = Console.ReadLine();
-            Console.WriteLine("Please enter your last name");
+            Console.WriteLine("\nPlease enter your last name");
             string lname = Console.ReadLine();
-            Console.WriteLine("Please register your username");
+            Console.WriteLine("\nPlease register your username");
             string userName = Console.ReadLine();
-            Console.WriteLine("Please enter your new password");
+            Console.WriteLine("\nPlease enter your new password");
             string password = Console.ReadLine();
-            Console.WriteLine("Please re-enter your new password to confirm");
+            Console.WriteLine("\nPlease re-enter your new password to confirm");
             string password2 = Console.ReadLine();
             if (password == password2)
             {
                 Console.Clear();
-                Console.WriteLine("**************************************************");
-                Console.WriteLine($"First Name: {fname}");
-                Console.WriteLine($"Last Name: {lname}");
-                Console.WriteLine($"Username: {userName}");
-                Console.WriteLine($"Password: {password2}");
-                Console.WriteLine("**************************************************");
+                Console.WriteLine("\n**************************************************\n");
+                Console.WriteLine($"First Name: \t{fname}");
+                Console.WriteLine($"Last Name: \t{lname}");
+                Console.WriteLine($"Username: \t{userName}");
+                Console.WriteLine($"Password: \t{password2}");
+                Console.WriteLine("\n**************************************************\n");
                 Console.WriteLine("If above informations are correct please enter 'Y' if not please enter 'N'");
                 string yesNo = Console.ReadLine();
                 if (yesNo == "Y" || yesNo == "y")

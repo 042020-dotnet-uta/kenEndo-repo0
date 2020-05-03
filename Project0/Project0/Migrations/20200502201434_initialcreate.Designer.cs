@@ -9,8 +9,8 @@ using Project0;
 namespace Project0.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200430183648_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200502201434_initialcreate")]
+    partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -147,6 +147,9 @@ namespace Project0.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("StoreLocationId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int?>("UserInfoId")
                         .HasColumnType("INTEGER");
 
@@ -154,6 +157,8 @@ namespace Project0.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("UserOrderId");
+
+                    b.HasIndex("StoreLocationId");
 
                     b.HasIndex("UserInfoId");
 
@@ -195,6 +200,10 @@ namespace Project0.Migrations
 
             modelBuilder.Entity("Project0.UserOrder", b =>
                 {
+                    b.HasOne("Project0.StoreLocation", "StoreLocation")
+                        .WithMany()
+                        .HasForeignKey("StoreLocationId");
+
                     b.HasOne("Project0.UserInfo", "UserInfo")
                         .WithMany()
                         .HasForeignKey("UserInfoId");

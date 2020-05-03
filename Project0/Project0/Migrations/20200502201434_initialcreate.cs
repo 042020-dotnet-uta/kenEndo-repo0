@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Project0.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initialcreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -84,11 +84,18 @@ namespace Project0.Migrations
                     UserOrderId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UserInfoId = table.Column<int>(nullable: true),
+                    StoreLocationId = table.Column<int>(nullable: true),
                     timeStamp = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserOrders", x => x.UserOrderId);
+                    table.ForeignKey(
+                        name: "FK_UserOrders_StoreLocations_StoreLocationId",
+                        column: x => x.StoreLocationId,
+                        principalTable: "StoreLocations",
+                        principalColumn: "StoreLocationId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UserOrders_UserInfos_UserInfoId",
                         column: x => x.UserInfoId,
@@ -179,6 +186,11 @@ namespace Project0.Migrations
                 name: "IX_UserOrderQuantities_UserOrderId",
                 table: "UserOrderQuantities",
                 column: "UserOrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserOrders_StoreLocationId",
+                table: "UserOrders",
+                column: "StoreLocationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserOrders_UserInfoId",

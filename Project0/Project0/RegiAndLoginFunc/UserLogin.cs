@@ -7,21 +7,12 @@ namespace Project0.RegiAndLoginFunc
 {
     public class UserLogin
     {
-        private string _userName;
-
-        public string userName
-        {
-            get { return _userName; }
-            set { _userName = value; }
-        }
+        internal static string _userName;
         UserInfo check;
-
         private string _password;
-        public UserInfo runLogin()
+        public void runLogin()
         {
-            askInfo();
-            //need to make code to compare inputted username/password with the registered user info in the database.
-        
+            askInfo();   
         using(var db = new AppDbContext())
             {
                 try
@@ -30,26 +21,27 @@ namespace Project0.RegiAndLoginFunc
                     Console.WriteLine("Success!\n Press Enter to go to the store page");
                     Console.ReadLine();
                     Console.Clear();
-                    return check;
                 }
                 catch(Exception e)
                 {
                     Console.WriteLine("Wrong username or password, please enter try again");
                     Console.ReadLine();
                     Console.Clear();
-                    return runLogin();
+                    runLogin();
                 }                
             }
-            //direct user to the store location page where user picks location.
         }
-
-
         public void askInfo()
         {
+            Console.Clear();
+            Console.WriteLine("\n**************************************************\n");
+            Console.WriteLine("\t\tUser Login");
+            Console.WriteLine("\n**************************************************\n");
             Console.WriteLine("Please enter your username");
-            userName = Console.ReadLine();
-            Console.WriteLine("Please enter your password");
+            _userName = Console.ReadLine();
+            Console.WriteLine("\nPlease enter your password");
             _password = Console.ReadLine();
+            Console.WriteLine("\n**************************************************\n");
         }
     }
 }
