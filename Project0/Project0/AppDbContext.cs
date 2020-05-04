@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.Options;
 using Project0.Properties;
 
 namespace Project0
@@ -17,9 +18,16 @@ namespace Project0
         public DbSet<UserOrderQuantity> UserOrderQuantities{ get; set; }
         public DbSet<UserOrderItem> UserOrderItems { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        public AppDbContext() { }//for test
+
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }//for test
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            options.UseSqlite("Data Source=Project0DB.db");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlite("Data Source=Project0DB.db");
+            }
         }
     }
 }
