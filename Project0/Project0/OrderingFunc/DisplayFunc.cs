@@ -9,6 +9,7 @@ namespace Project0.OrderingFunc
 {
     class DisplayFunc
     {
+
        public void SeeStores()
         {
             DisplayLocations test = new DisplayLocations();
@@ -29,7 +30,7 @@ namespace Project0.OrderingFunc
         /// </summary>
         List<StoreLocation> locations; 
         public List<StoreItem> storeItems;
-        int input1 = 0;
+        internal static int input1 = 0;
        /// <summary>
        /// displayingLocation is a method in DisplayLocation class that displays all store 
        /// location from StoreLocations table.
@@ -38,7 +39,6 @@ namespace Project0.OrderingFunc
         { 
             using(var db = new AppDbContext())
             {
-                Console.Clear();
                 Console.WriteLine("\n**************************************************");
                 locations = db.StoreLocations.ToList(); //stores Storelocation table names into locations list
                 foreach(StoreLocation x in locations) //prints all shop locations onto the console
@@ -66,10 +66,10 @@ namespace Project0.OrderingFunc
                     var selectedLocation = db.StoreLocations
                         .First(x => x.StoreLocationId == input1);
                     Console.WriteLine("\n**************************************************");
-                    Console.WriteLine($"\t\t{selectedLocation.Location} Pet Shop!\n ");
-                   foreach(StoreItem storeitem in storeItems)
+                    Console.WriteLine($"\t\t{selectedLocation.Location} Pet Shop!\n\n ");
+                    foreach (StoreItem storeitem in storeItems)
                     {
-                        Console.WriteLine($"{storeitem.StoreItemId}.{storeitem.itemName}\t\t\t${storeitem.itemPrice}\tCount:{storeitem.StoreItemInventory.itemInventory}");
+                        Console.WriteLine("{0,-5}{1,-20}{2,15:C}{3,5}", storeitem.StoreItemId, storeitem.itemName, storeitem.itemPrice, storeitem.StoreItemInventory.itemInventory);
                     }
                     Console.WriteLine("**************************************************");
                 }

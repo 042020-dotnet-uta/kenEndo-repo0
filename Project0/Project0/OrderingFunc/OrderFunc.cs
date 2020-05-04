@@ -45,6 +45,9 @@ namespace Project0.OrderingFunc
 
                         int purchaseId = int.Parse(Console.ReadLine());//if statment to check if the user entered number is an existing item id
 
+                        db.StoreItems.Include(x => x.StoreLocation).Where(x => x.StoreLocation.StoreLocationId == DisplayLocations.input1)
+                            .First(x => x.StoreItemId == purchaseId); //check to access a certain item from a certain location
+
                         userPickedItem = db.StoreItems.Where(x => x.StoreItemId == purchaseId) //store the user selected pet id, this will throw an exception if user input does not match database
                              .Include(y => y.StoreItemInventory).ToList().First();
 
@@ -54,6 +57,7 @@ namespace Project0.OrderingFunc
                     {
                         Console.WriteLine("The pet id you entered did not match any of the pets, Please enter to try again");
                         Console.ReadLine();
+                        Console.Clear();
                         continue; //when exception is caught, 'continue' allows this program to start over from 'anotherbuy' while loop again
                     }
                     while (loopConditionForQuantity) //while loop for input validation on quantity of pet selected, will loop as long as user enter wrong quantity

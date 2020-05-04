@@ -75,13 +75,13 @@ namespace Project0.NavigationFunc
                                     .ThenInclude(x => x.StoreItem);
                             Console.Clear();
                             Console.WriteLine("\n**************************************************\n");
-                        Console.WriteLine("Pet Name\tQuantity\n");
+                        Console.WriteLine("Pet Name\t\t\tQuantity\n");
                         foreach (var x in userOrder1) //foreach to display item name and quantity ordered
                                 {
                                     var test = x.UserOrderItems.Zip(x.UserOrderQuantity); //zip to combine the two list (credit to Jayson)
                                     foreach (var i in test)
                                     {
-                                        Console.WriteLine($"{i.First.StoreItem.itemName}\t\t{i.Second.orderQuantity}");
+                                        Console.WriteLine("{0,-20}{1,16}", i.First.StoreItem.itemName, i.Second.orderQuantity);
                                     }
                                 }
                         Console.WriteLine("\n**************************************************\n");
@@ -179,13 +179,13 @@ namespace Project0.NavigationFunc
                                     .ThenInclude(x => x.StoreItem);
                             Console.Clear();
                             Console.WriteLine("\n**************************************************\n");
-                            Console.WriteLine("Pet Name\tQuantity\n");
+                            Console.WriteLine("Pet Name\t\t\tQuantity\n");
                         foreach (var x in userOrder1) //foreach to display item name and quantity ordered
                         {
                             var test = x.UserOrderItems.Zip(x.UserOrderQuantity);
                             foreach (var i in test)
                             {
-                                Console.WriteLine($"{i.First.StoreItem.itemName}\t\t{i.Second.orderQuantity}");
+                                Console.WriteLine("{0,-20}{1,16}", i.First.StoreItem.itemName, i.Second.orderQuantity);
                             }
                         }
                             Console.WriteLine("\n**************************************************\n");
@@ -298,13 +298,13 @@ namespace Project0.NavigationFunc
                         Console.Clear();
                         Console.WriteLine("\n**************************************************\n");
                         Console.WriteLine($"Order by: {userOrdered.fName} {userOrdered.lName}\n");
-                        Console.WriteLine("Pet Name\tQuantity\n");
+                        Console.WriteLine("Pet Name\t\t\tQuantity\n");
                         foreach (var x in userOrder1)
                             {
                                 var test = x.UserOrderItems.Zip(x.UserOrderQuantity);
                                 foreach (var i in test) //foreach to display item name and quantity ordered
                             {
-                                    Console.WriteLine($"{i.First.StoreItem.itemName}\t\t{i.Second.orderQuantity}");
+                                Console.WriteLine("{0,-20}{1,16}",i.First.StoreItem.itemName, i.Second.orderQuantity);//////////////////////////////////////////////////////
                                 }
                             }
                         Console.WriteLine("\n**************************************************\n");
@@ -324,6 +324,7 @@ namespace Project0.NavigationFunc
                     if (yesNo1 == "Y" || yesNo1 == "y") //if statement to return back to the 'checking' while loop
                     {
                         checking = true;
+                        checking1 = true;
                         continue;
                     }
                     else

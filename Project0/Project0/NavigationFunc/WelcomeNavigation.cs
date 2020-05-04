@@ -9,6 +9,7 @@ namespace Project0.NavigationFunc
     {
         internal void Welcome()
         {
+            Console.Clear();
             Console.WriteLine("\n**************************************************************\n");
             Console.WriteLine("\t\t    The Tiger King Pet Shop");
             Console.WriteLine("\n**************************************************************\n");
