@@ -27,22 +27,22 @@ namespace CodingChallengeWeek3
                 {
                     case 1:
                         {
-                            test.IsEven();
+                            test.IsEven(); //runs the IsEven method
                             break;
                         }
                     case 2:
                         {
-                            test.MultTable();
+                            test.MultTable(); //runs the MultTable method
                             break;
                         }
                     case 3:
                         {
-                            test.Shuffle();
+                            test.Shuffle(); //runs the Shuffle method
                             break;
                         }
                     case 4:
                         {
-                            Environment.Exit(0);
+                            Environment.Exit(0); //exits the console
                             break;
                         }
                 }
@@ -51,7 +51,7 @@ namespace CodingChallengeWeek3
             {
                 Console.WriteLine("Come on... Select a number between 1 ~ 4.\n Enter to try one more time");
                 Console.ReadLine();
-                Run();
+                Run(); //re-runs the menu
             }
 
         }

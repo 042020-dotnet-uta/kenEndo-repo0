@@ -17,24 +17,25 @@ namespace CodingChallengeWeek3
             Console.Clear();
             Console.WriteLine("Please enter a number to check if its even");
             string entered = Console.ReadLine();
-            string finalType;
+            string finalType; //string to show the user inputted data type
             if (!string.IsNullOrWhiteSpace(entered)) //input validation for spaces and enters
             {
                 int tryInt;
                 decimal tryDec;
-                if (Int32.TryParse(entered, out tryInt)) //input validation for integer
+
+                if (Int32.TryParse(entered, out tryInt)) //input validation for integer and stores to tryInt
                 {
                     finalType = "Integer";
                     if (tryInt % 2 == 0) //check if input is an even number
                     {
                         Console.WriteLine($"The entered number is an Even {finalType}");
                     }
-                    else
+                    else //prints this if odd
                     {
                         Console.WriteLine($"The entered number is an Odd {finalType}");
                     }
                 }
-                else if (Decimal.TryParse(entered, out tryDec)) //input validation for decimal
+                else if (Decimal.TryParse(entered, out tryDec)) //input validation for decimal and stores to tryDec
                 {
                     finalType = "Decimal";
                     Console.WriteLine($"The entered number is {finalType}");
@@ -65,9 +66,9 @@ namespace CodingChallengeWeek3
                 {
                     for (int i = 1; i <= enteredNumber; i++) //creation of multiplication table, controls the left side of the multiplication
                     {
-                        for (int x = 1; x <= enteredNumber; x++) // controls the right side of the multiplication table
+                        for (int x = 1; x <= enteredNumber; x++) // controls the right side of the multiplication
                         {
-                            Console.Write($"{i} x {x} = {i * x}, ");
+                            Console.Write($"{i} x {x} = {i * x}, "); // loop rotates through x to multiply everything up to the user selected number
                         }
                         Console.WriteLine("");
                     }
@@ -98,7 +99,7 @@ namespace CodingChallengeWeek3
                 var entered = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(entered)) //input validation on empty or space input
                 {
-                    firstList.Add(entered);
+                    firstList.Add(entered);//if it is a valid input, adds to list
                 }
                 else
                 {
@@ -114,7 +115,7 @@ namespace CodingChallengeWeek3
                 var entered = Console.ReadLine();
                 if (!string.IsNullOrWhiteSpace(entered)) //input validation on empty or space input
                 {
-                    secondList.Add(entered);
+                    secondList.Add(entered);//if it is a valid input, adds to list
                 }
                 else
                 {
@@ -126,16 +127,17 @@ namespace CodingChallengeWeek3
 
             var newList = combineList(firstList, secondList); //using the combineList method(scroll down) to combine two list 
             Console.Clear();
-            Console.Write("\n[" + string.Format(string.Join(", ", newList)) + "]"); //display on console in a line
+            Console.Write("\n[" + string.Format(string.Join(", ", newList)) + "]"); //display the combined list on console in a line
             returnToMenu(); //returns user to the main menu
 
-            List<Object> combineList(List<Object> first, List<Object> second) //argument method that combines two list into one.
+            
+            List<Object> combineList(List<Object> first, List<Object> second) //nested method that combines two list into one.
             {
-                List<Object> newList = new List<object>();
+                List<Object> newList = new List<object>(); //creation of new list to combine two lists
                 for (int i = 0; i < 5; i++) //combines two list using for loop into newList
                 {
-                    newList.Add(first[i]);
-                    newList.Add(second[i]);
+                    newList.Add(first[i]); //adds element from first list to the new list
+                    newList.Add(second[i]); //adds element from second list to the new list
                 }
                 return newList;
             }
@@ -146,7 +148,7 @@ namespace CodingChallengeWeek3
             Console.WriteLine("\n\nEnter to return to the main menu");
             Console.ReadLine();
             Menu codeChallengeW2 = new Menu();
-            codeChallengeW2.Run();
+            codeChallengeW2.Run(); //returns to the menu
         }
     }
 }
