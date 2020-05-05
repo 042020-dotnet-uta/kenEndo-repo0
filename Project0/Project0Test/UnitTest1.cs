@@ -19,7 +19,7 @@ namespace Project0Test
             //Test1
             //Arrange
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "Insert and retrieve")
+                .UseInMemoryDatabase(databaseName: "Test1")
                 .Options;
 
             //Act
@@ -42,10 +42,10 @@ namespace Project0Test
         /// Test if the user is stored properly and retrievable
         /// </summary>
         [Fact]
-        public void AddsUserToDb()
+        public void CheckAddsUserToDbTestPersist()
         {
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "Insert and retrieve")
+                .UseInMemoryDatabase(databaseName: "Test2")
                 .Options;
             //Act
             using (var db1 = new AppDbContext(options))
@@ -85,7 +85,7 @@ namespace Project0Test
             //Test1
             //Arrange
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "Insert and retrieve")
+                .UseInMemoryDatabase(databaseName: "Test3")
                 .Options;
             //Act
             using (var dbww = new AppDbContext(options))
@@ -136,7 +136,7 @@ namespace Project0Test
         {
 
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "Insert and retrieve")
+                .UseInMemoryDatabase(databaseName: "Test4")
                 .Options;
 
             //Act
@@ -166,7 +166,7 @@ namespace Project0Test
         public void CheckUserLogin()
         {
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "Insert and retrieve")
+                .UseInMemoryDatabase(databaseName: "Test5")
                 .Options;
             string userName = "Davidl";
             string password = "abc123";
@@ -227,7 +227,7 @@ namespace Project0Test
         {
 
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "Insert and retrieve")
+                .UseInMemoryDatabase(databaseName: "Test6")
                 .Options;
             int inputLocation = 1;
             int inputItem = 1;
@@ -276,7 +276,7 @@ namespace Project0Test
             //Test1
             //Arrange
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "Insert and retrieve")
+                .UseInMemoryDatabase(databaseName: "Test7")
                 .Options;
 
             int inputQuantity = 4;
@@ -326,7 +326,7 @@ namespace Project0Test
             //Test1
             //Arrange
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "Insert and retrieve")
+                .UseInMemoryDatabase(databaseName: "Test8")
                 .Options;
             int inputQuantity = 4;
             int inputItem = 1;
@@ -376,7 +376,7 @@ namespace Project0Test
         public void InputValidationForUsers()
         {
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "Insert and retrieve")
+                .UseInMemoryDatabase(databaseName: "Test9")
                 .Options;
             int inputId1 = 2;
             int inputId2 = 4;
@@ -429,7 +429,7 @@ namespace Project0Test
         {
 
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "Insert and retrieve")
+                .UseInMemoryDatabase(databaseName: "Test10")
                 .Options;
             int inputItem = 2;
             int inputItem1 = 9;

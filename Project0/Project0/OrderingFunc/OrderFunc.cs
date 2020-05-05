@@ -22,6 +22,7 @@ namespace Project0.OrderingFunc
         bool anotherBuy = true;
         bool loopConditionForQuantity = true;
         bool ifDoesntExist = true;
+        DisplayLocations displayLocation = new DisplayLocations();
 
         public void StartOrder() //method to run UserLogin, DisplayFunc, and Ordering
         {
@@ -38,26 +39,37 @@ namespace Project0.OrderingFunc
             {
                 while (anotherBuy) //this while loop is used for user that wants to make multiple order
                 {
-                    try //this try will check if the user selected item id matches the pet id displayed
+                    Console.Clear();
+                    displayLocation.ShowLocationItem();
+                    Console.WriteLine("Please select the pet you would like to take home today!" +
+                        "\nEnter pet number displayed next to the name to add to cart:");
+
+                    try //this try will check if the entered id is a valid id within that selected location and if it is an integer
                     {
-                        Console.WriteLine("Please select the pet you would like to take home today!" +
-                            "\nEnter pet number displayed next to the name to add to cart:");
-
-                        int purchaseId = int.Parse(Console.ReadLine());//if statment to check if the user entered number is an existing item id
-
-                        db.StoreItems.Include(x => x.StoreLocation).Where(x => x.StoreLocation.StoreLocationId == DisplayLocations.input1)
-                            .First(x => x.StoreItemId == purchaseId); //check to access a certain item from a certain location
-
-                        userPickedItem = db.StoreItems.Where(x => x.StoreItemId == purchaseId) //store the user selected pet id, this will throw an exception if user input does not match database
-                             .Include(y => y.StoreItemInventory).ToList().First();
-
+                        int purchaseId = int.Parse(Console.ReadLine()); //parse input to int
+                        userPickedItem = db.StoreItems.Include(x => x.StoreLocation).Include(x=>x.StoreItemInventory)
+                            .Where(x => x.StoreLocation.StoreLocationId == DisplayLocations.input1)
+                            .First(x => x.StoreItemId == purchaseId); //stores the item selected, its location, its inventory into userPickedItem
                         userPickedItemInventory = userPickedItem.StoreItemInventory.itemInventory; //store the available inventory of the selected pet
+                        //userPickedItem = db.StoreItems.Where(x => x.StoreItemId == purchaseId) //store the user selected pet id, this will throw an exception if user input does not match database
+                        //     .Include(y => y.StoreItemInventory).ToList().First();///////////////////////////////////////////////////////////
                     }
-                    catch //if any exceptions were caught, return to the start of the 'anotherBuy' while loop.
+                    catch(InvalidOperationException) //if any exceptions were caught, return to the start of the 'anotherBuy' while loop.
                     {
                         Console.WriteLine("The pet id you entered did not match any of the pets, Please enter to try again");
                         Console.ReadLine();
-                        Console.Clear();
+                        continue; //when exception is caught, 'continue' allows this program to start over from 'anotherbuy' while loop again
+                    }
+                    catch(FormatException)
+                    {
+                        Console.WriteLine("Please enter a valid Id NUMBER, enter to try again");
+                        Console.ReadLine();
+                        continue; //when exception is caught, 'continue' allows this program to start over from 'anotherbuy' while loop again
+                    }
+                    catch(Exception)
+                    {
+                        Console.WriteLine("I don't know what you entered but please read, Please enter to try again");
+                        Console.ReadLine();
                         continue; //when exception is caught, 'continue' allows this program to start over from 'anotherbuy' while loop again
                     }
                     while (loopConditionForQuantity) //while loop for input validation on quantity of pet selected, will loop as long as user enter wrong quantity
@@ -72,14 +84,15 @@ namespace Project0.OrderingFunc
                         }
                         else
                         {
-                            Console.WriteLine("The entered amount exceeds our store inventory, please try again."); //restart the while loop because the conditional 'loopConditionForQuantity' is still true
+                            Console.WriteLine("The entered amount exceeds or is " +
+                                "not a valid input in our store inventory, please try again."); //restart the while loop because the conditional 'loopConditionForQuantity' is still true
                         }
                     }
-                    var currentUser1 = db.UserInfos.ToList().Find(x => x.userName == UserLogin._userName);
-                    //var currentUser1 = db.UserInfos.ToList().Find(x => x.UserInfoId == currentUser.UserInfoId); //store the current user information
-                    var currentStore1 = db.StoreItems.ToList().Find(x => x.StoreItemId == userPickedItem.StoreItemId); //store the current item id
+                    var currentUser1 = db.UserInfos.ToList().Find(x => x.userName == UserLogin._userName); //stores current user info
+                    var currentItem = db.StoreItems.ToList().Find(x => x.StoreItemId == userPickedItem.StoreItemId); //stores current item id
                     var currentLocation = db.StoreItems.Include(x => x.StoreLocation).ToList()
-                        .Find(x => x.StoreItemId == userPickedItem.StoreItemId).StoreLocation; //store the current store location
+                        .Find(x => x.StoreItemId == userPickedItem.StoreItemId).StoreLocation; //stores current store location
+
                     if (ifDoesntExist) //if statement to create user order only once. once created bool value are assigned negative.
                     {
                         UserOrder userOrder = new UserOrder //create a new order
@@ -95,7 +108,7 @@ namespace Project0.OrderingFunc
                     var currentUserOrder = db.UserOrders.ToList().Last(); //store the current order id
                     UserOrderItem userOrderItem = new UserOrderItem //create a new item order obj
                     {
-                        StoreItem = currentStore1,
+                        StoreItem = currentItem,
                         UserOrder = currentUserOrder
                     };
                     db.Add(userOrderItem); //add a user order item entity to the database
@@ -103,11 +116,12 @@ namespace Project0.OrderingFunc
                     UserOrderQuantity userOrderQuantity = new UserOrderQuantity //create a new user order quantity obj
                     {
                         UserOrder = currentUserOrder,
-                        StoreItem = currentStore1,
+                        StoreItem = currentItem,
                         orderQuantity = enteredQuantity
                     };
                     db.Add(userOrderQuantity); //add a user order quantity entity to the database
-                    var updateInventory = db.StoreItemInventories
+
+                    var updateInventory = db.StoreItemInventories //selects the user chosen item inventory
                         .First(x => x.StoreItemInventoryId == userPickedItem.StoreItemInventory.StoreItemInventoryId);
                     updateInventory.itemInventory = newInventory; //update the new store inventory of pet in database
                     db.SaveChanges();
@@ -123,9 +137,9 @@ namespace Project0.OrderingFunc
                     {
                         anotherBuy = false; //exits the main 'anotherBuy' while loop
                     }
-                    MainNavigation test7 = new MainNavigation();
-                    test7.WhereToNavigation();
                 }
+                MainNavigation test7 = new MainNavigation();
+                test7.WhereToNavigation();
             }
         }
     }

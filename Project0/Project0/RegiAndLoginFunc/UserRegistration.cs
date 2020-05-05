@@ -4,35 +4,36 @@ using System.Text;
 using System.Linq;
 
 namespace Project0.RegiAndLoginFunc
-{
+{/// <summary>
+/// Class for user to register their information and insert into database
+/// </summary>
     public class UserRegistration
     {
-
         public void runRegistration()
         {
             Console.Clear();
-            Console.WriteLine("\nPlease enter your first name");
-            string fname = Console.ReadLine();
+            Console.WriteLine("\nPlease enter your first name"); 
+            string fname = Console.ReadLine(); //stores first name
             Console.WriteLine("\nPlease enter your last name");
-            string lname = Console.ReadLine();
+            string lname = Console.ReadLine(); //stores last name
             Console.WriteLine("\nPlease register your username");
-            string userName = Console.ReadLine();
+            string userName = Console.ReadLine(); //stores username
             Console.WriteLine("\nPlease enter your new password");
-            string password = Console.ReadLine();
+            string password = Console.ReadLine(); //stores password
             Console.WriteLine("\nPlease re-enter your new password to confirm");
-            string password2 = Console.ReadLine();
-            if (password == password2)
+            string password2 = Console.ReadLine(); //stores confirmation password
+            if (password == password2) //check if the two password matches
             {
                 Console.Clear();
                 Console.WriteLine("\n**************************************************\n");
-                Console.WriteLine($"First Name: \t{fname}");
+                Console.WriteLine($"First Name: \t{fname}"); //displays user infos
                 Console.WriteLine($"Last Name: \t{lname}");
                 Console.WriteLine($"Username: \t{userName}");
                 Console.WriteLine($"Password: \t{password2}");
                 Console.WriteLine("\n**************************************************\n");
                 Console.WriteLine("If above informations are correct please enter 'Y' if not please enter 'N'");
                 string yesNo = Console.ReadLine();
-                if (yesNo == "Y" || yesNo == "y")
+                if (yesNo == "Y" || yesNo == "y") //confirmation to check if all user information is correct
                 {
                     Console.WriteLine("**************************************************");
                     UserInfo user = new UserInfo(fname, lname, userName, password2);
@@ -40,33 +41,23 @@ namespace Project0.RegiAndLoginFunc
                     Console.WriteLine("Press any button to be directed to the login page");
                     Console.ReadLine();
                     Console.Clear();
-                    //need a function here to add this user class to the database
-                    try
+                    using (var db = new AppDbContext())
                     {
-                        using (var db = new AppDbContext())
-                        {
-                            db.Add(user);
-                            db.SaveChanges();
-                        }
-                    }
-                    catch(Exception e)
-                    {
-                        Console.WriteLine(e.InnerException.ToString());
+                        db.Add(user); // adds the new userinfo into the database
+                        db.SaveChanges();
                     }
                 }
-                else
+                else // if user do not enter 'y'
                 {
                     Console.WriteLine("Please enter to start over");
                     Console.ReadLine();
-                    Console.Clear();
                     runRegistration();
                 }
             }
-            else
+            else // if password does not match, start over.
             {
                 Console.WriteLine("Password did not match, please enter to start over");
                 Console.ReadLine();
-                Console.Clear();
                 runRegistration();
             }
         }
