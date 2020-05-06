@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Project0
 {
+	/// <summary>
+	/// Model for item inventories
+	/// </summary>
 	public class StoreItemInventory
 	{
 		public int StoreItemInventoryId { get; set; } //PRIMARY KEY

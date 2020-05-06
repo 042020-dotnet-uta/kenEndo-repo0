@@ -6,13 +6,12 @@ using System.Text;
 
 namespace Project0
 {
+    /// <summary>
+    /// Model for every order user makes
+    /// </summary>
     public class UserOrder
     {
         public int UserOrderId { get; set; } //PRIMARY KEY
-        /*        public int UserInfoId { get; set; }
-
-                [ForeignKey("UserInfoId")]
-                */
         public virtual UserInfo UserInfo { get; set; } //RELATION TO USERINFO
         public virtual StoreLocation StoreLocation { get; set; } //RELATION TO LOCATION
                 

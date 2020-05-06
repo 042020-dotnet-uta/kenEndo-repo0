@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Project0
 {
+	/// <summary>
+	/// Model for user information
+	/// </summary>
 	public class UserInfo
 	{
 		public int UserInfoId { get; set; } //PRIMARY KEY

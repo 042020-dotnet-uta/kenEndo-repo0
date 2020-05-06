@@ -132,7 +132,7 @@ namespace Project0Test
         /// test to see if the if loop is working properly when user enter 'y'
         /// </summary>
         [Fact]
-        public void CYesNoIfStatementLoopCheck()
+        public void YesNoIfStatementLoopCheck()
         {
 
             var options = new DbContextOptionsBuilder<AppDbContext>()

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Project0.NavigationFunc
 {
@@ -170,7 +171,7 @@ namespace Project0.NavigationFunc
                         Console.ReadLine();
                         continue;
                     }
-                    catch(Exception e) //any other exception, print on console and return to 'checking1' while loop
+                    catch (Exception e) //any other exception, print on console and return to 'checking1' while loop
                     {
                         Console.WriteLine(e);
                         Console.WriteLine("Please enter a valid user name, enter to continue:"); //returns to 'chicking1' while loop if exceptions were caught
@@ -178,38 +179,51 @@ namespace Project0.NavigationFunc
                         continue;
                     }
                     var userOrder = db.UserOrders.Include(x=>x.StoreLocation) //store user order with store location
-                            .Where(x => x.UserInfo.UserInfoId == check.UserInfoId); 
-                        while (checking) //while loop to view other orders of the selected user
+                            .Where(x => x.UserInfo.UserInfoId == check.UserInfoId);
+                    while (checking) //while loop to view other orders of the selected user
+                    {
+                        Console.Clear();
+                        Console.WriteLine("\n**************************************************");
+                        Console.WriteLine("\nOrder Id\tOrder Time\tLocation\n");
+                        foreach (var x in userOrder) //displays all orders made by user
                         {
-                            Console.Clear();
-                            Console.WriteLine("\n**************************************************");
-                            Console.WriteLine("\nOrder Id\tOrder Time\tLocation\n");
-                            foreach (var x in userOrder) //displays all orders made by user
-                            {
-                                Console.WriteLine($"   {x.UserOrderId}\t\t{x.timeStamp}\t{x.StoreLocation.Location}");
-                            }
-                            Console.WriteLine("\n**************************************************\n");
-                            Console.WriteLine("\nSelect the order Id to view its details");
-                            {
-                                try  //input validation to make sure entered ID exists in database
-                                {
-                                    selectedOrderId = int.Parse(Console.ReadLine());
-                                    db.UserOrders.First(x => x.UserOrderId == selectedOrderId);
-                                }
-                                catch
-                                {
-                                    Console.WriteLine("\nPlease enter a valid ID, enter to continue:"); //returns to 'chicking' while loop if exceptions were caught
-                                    Console.ReadLine();
-                                    continue;
-                                }
-                            }
-                                var userOrder1 = db.UserOrders.Where(x => x.UserOrderId == selectedOrderId) //store table for Userorder, userquant, and storeitem infos
+                            Console.WriteLine($"   {x.UserOrderId}\t\t{x.timeStamp}\t{x.StoreLocation.Location}");
+                        }
+                        Console.WriteLine("\n**************************************************\n");
+                        Console.WriteLine("\nSelect the order Id to view its details");
+
+                        try  //input validation to make sure entered order ID exists in database
+                        {
+                            selectedOrderId = int.Parse(Console.ReadLine());
+                            db.UserOrders.Include(x => x.UserInfo).Where(x => x.UserInfo == check).First(x => x.UserOrderId == selectedOrderId);
+                            //db.UserOrders.First(x => x.UserOrderId == selectedOrderId);
+                        }
+                        catch (FormatException) //format exception to catch if input is not int
+                        {
+                            Console.WriteLine("Please enter a NUMBER, enter to continue:");
+                            Console.ReadLine();
+                            continue; //returns to 'checking' while loop
+                        }
+                        catch (InvalidOperationException)//invalid exception to catch if the input does not exist
+                        {
+                            Console.WriteLine("Please enter a valid Id, enter to continue:");
+                            Console.ReadLine();
+                            continue; //returns to 'checking' while loop
+                        }
+                        catch (Exception e) //any other exception caught, displays the exception error.
+                        {
+                            Console.WriteLine(e);
+                            Console.WriteLine("Please enter a valid Id, enter to continue:");
+                            Console.ReadLine();
+                            continue; //returns to 'checking1' while loop
+                        }
+                        var userOrder1 = db.UserOrders.Where(x => x.UserOrderId == selectedOrderId) //store table for Userorder, userquant, and storeitem infos
                                     .Include(x => x.UserOrderQuantity)
                                     .Include(x => x.UserOrderItems)
                                     .ThenInclude(x => x.StoreItem);
-                            Console.Clear();
-                            Console.WriteLine("\n**************************************************\n");
-                            Console.WriteLine("Pet Name\t\t\tQuantity\n");
+                        Console.Clear();
+                        Console.WriteLine("\n**************************************************\n");
+                        Console.WriteLine("Pet Name\t\t\tQuantity\n");
                         foreach (var x in userOrder1) //foreach to display item name and quantity ordered
                         {
                             var test = x.UserOrderItems.Zip(x.UserOrderQuantity);
@@ -218,30 +232,30 @@ namespace Project0.NavigationFunc
                                 Console.WriteLine("{0,-20}{1,16}", i.First.StoreItem.itemName, i.Second.orderQuantity);
                             }
                         }
-                            Console.WriteLine("\n**************************************************\n");
-                            Console.WriteLine("Would you like to check a different order? Y/N");
-                            string yesNo = Console.ReadLine();
-                            if (yesNo == "Y" || yesNo == "y") //if statement to return back to the beginning while statement.
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                checking = false; //exits the 'checking' while loop
-                            }
-                        }
-                        Console.WriteLine("Would you like to check orders from different user? Y/N");
-                        string yesNo1 = Console.ReadLine();
-                        if (yesNo1 == "Y" || yesNo1 == "y") //if statement to return back to the beginning while statement.
+                        Console.WriteLine("\n**************************************************\n");
+                        Console.WriteLine("Would you like to check a different order? Y/N");
+                        string yesNo = Console.ReadLine();
+                        if (yesNo == "Y" || yesNo == "y") //if statement to return back to the beginning while statement.
                         {
-                            checking = true;
                             continue;
                         }
                         else
                         {
-                            checking1 = false; //exits the main 'checking1' while loop
-                            MainNavigation test7 = new MainNavigation();
-                            test7.WhereToNavigation();
+                            checking = false; //exits the 'checking' while loop
+                        }
+                    }
+                        Console.WriteLine("Would you like to check orders from different user? Y/N");
+                        string yesNo1 = Console.ReadLine();
+                    if (yesNo1 == "Y" || yesNo1 == "y") //if statement to return back to the beginning while statement.
+                    {
+                        checking = true;
+                        continue;
+                    }
+                    else
+                    {
+                        checking1 = false; //exits the main 'checking1' while loop
+                        MainNavigation test7 = new MainNavigation();
+                        test7.WhereToNavigation();
                     }
                 }
             }
@@ -255,6 +269,7 @@ namespace Project0.NavigationFunc
         bool checking = true;
         bool checking1 = true;
         int selectedOrderId = 0;
+        IQueryable<UserOrder> dbOrders;
         public void OrderHistory()
         {
             using (var db = new AppDbContext())
@@ -271,19 +286,19 @@ namespace Project0.NavigationFunc
                     Console.WriteLine("\n**************************************************\n");
                     Console.WriteLine("Select a location to see all orders placed there");
                     int selectedLocation = 0;
-                    if (int.TryParse(Console.ReadLine(), out selectedLocation) 
+                    if (int.TryParse(Console.ReadLine(), out selectedLocation)
                         && selectedLocation > 0 && selectedLocation < 6) //input validation to make sure user input is int
                     {
                         try //input validation to make sure input id matches database
                         {
-                            db.StoreLocations.First(x => x.StoreLocationId == selectedLocation);
+                            dbOrders = db.UserOrders.Include(x => x.StoreLocation)
+                                .Where(x => x.StoreLocation.StoreLocationId == selectedLocation); //stores user orders with store location included
                         }
-                        catch //returns user back to the 'checking' while loop
+                        catch (InvalidOperationException) //format exception to catch if input is not int
                         {
-                            Console.WriteLine("Invalid input, please enter to try again");
+                            Console.WriteLine("Please enter a NUMBER, enter to continue:");
                             Console.ReadLine();
-                            Console.Clear();
-                            continue;
+                            continue; //returns to 'checking1' while loop
                         }
                     }
                     else
@@ -294,13 +309,11 @@ namespace Project0.NavigationFunc
                         continue;
                     }
                     Console.Clear();
-                    var dbOrders = db.UserOrders.Include(x => x.StoreLocation)
-                        .Where(x => x.StoreLocation.StoreLocationId == selectedLocation); //stores user orders with store location included
                     while (checking1)
                     {
                         Console.Clear();
                         Console.WriteLine("\n**************************************************\n");
-                        Console.WriteLine("User Id\t\tOrder Time\t\tLocation\n");
+                        Console.WriteLine("Order Id\t\tOrder Time\t\tLocation\n");
                         foreach (var x in dbOrders) //displays all user order for the selected location
                         {
                             Console.WriteLine($"{x.UserOrderId}\t\t{x.timeStamp}\t{x.StoreLocation.Location}");
@@ -310,16 +323,29 @@ namespace Project0.NavigationFunc
                         try
                         {
                             selectedOrderId = int.Parse(Console.ReadLine());
-                            db.UserOrders.First(x => x.UserOrderId == selectedOrderId); //input validation for the selected order id
+                            db.UserOrders.Include(x=>x.StoreLocation).Where(x=>x.StoreLocation.StoreLocationId==selectedLocation)
+                                .First(x => x.UserOrderId == selectedOrderId); //input validation for the selected order id
                         }
-                        catch
+                        catch (FormatException) //format exception to catch if input is not int
                         {
-                            Console.WriteLine("\nInvalid input, please enter to try again");
+                            Console.WriteLine("Please enter a NUMBER, enter to continue:");
                             Console.ReadLine();
-                            Console.Clear();
-                            continue;
-                        }                       
-                            var userOrder1 = db.UserOrders.Where(x => x.UserOrderId == selectedOrderId) //store table for Userorder, userquant, and storeitem infos
+                            continue; //returns to 'checking1' while loop
+                        }
+                        catch (InvalidOperationException)//invalid exception to catch if the input does not exist
+                        {
+                            Console.WriteLine("Please enter a valid Id, enter to continue:");
+                            Console.ReadLine();
+                            continue; //returns to 'checking1' while loop
+                        }
+                        catch (Exception e) //any other exception caught, displays the exception error.
+                        {
+                            Console.WriteLine(e);
+                            Console.WriteLine("Please enter a valid Id, enter to continue:");
+                            Console.ReadLine();
+                            continue; //returns to 'checking1' while loop
+                        }
+                        var userOrder1 = db.UserOrders.Where(x => x.UserOrderId == selectedOrderId) //store table for Userorder, userquant, and storeitem infos
                                 .Include(x => x.UserOrderQuantity)
                                 .Include(x => x.UserOrderItems)
                                 .ThenInclude(x => x.StoreItem);

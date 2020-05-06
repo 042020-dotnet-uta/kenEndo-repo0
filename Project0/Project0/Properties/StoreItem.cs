@@ -7,12 +7,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project0
 {
+	/// <summary>
+	/// Model for store items in each locations
+	/// </summary>
 	public class StoreItem
 	{
 		public int StoreItemId { get; set; } //PRIMARY KEY
 		//public Nullable<int> StoreLocationId { get; set; }
 		public virtual StoreLocation StoreLocation { get; set; } //RELATION TO STORELOCATION
-		public virtual StoreItemInventory StoreItemInventory { get; set; }
+		public virtual StoreItemInventory StoreItemInventory { get; set; } //RELATION TO STOREITEMINVENTORY
 		
 		private string _itemName; //name of the item
 

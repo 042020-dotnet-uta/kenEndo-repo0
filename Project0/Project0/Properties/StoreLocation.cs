@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Project0
 {
+	/// <summary>
+	/// Model for store locations
+	/// </summary>
 	public class StoreLocation
 	{
 		public int StoreLocationId { get; set; } //PRIMARY KEY

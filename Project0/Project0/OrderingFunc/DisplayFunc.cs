@@ -22,14 +22,11 @@ namespace Project0.OrderingFunc
     /// </summary>
     public class DisplayLocations
     {
-        /// <summary>
-        /// locations stores list of locations of all stores
-        /// storeItems stores list of all items from the user selected store
-        /// </summary>
-        List<StoreLocation> locations;
-        public List<StoreItem> storeItems;
+        List<StoreLocation> locations; //locations stores list of locations of all stores
+        public List<StoreItem> storeItems; //storeItems stores list of all items from the user selected store
         internal static int input1 = 0; //static field to store user selected location
-        string input;
+        string input; //stores user input to choose location
+
         /// <summary>
         /// displayingLocation is a method in DisplayLocation class that displays all store 
         /// location from StoreLocations table.
@@ -82,4 +79,3 @@ namespace Project0.OrderingFunc
         }
     }
 }
-

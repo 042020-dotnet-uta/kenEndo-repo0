@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Project0.Properties
 {
+    /// <summary>
+    /// Model for User Ordered Quantity
+    /// </summary>
     public class UserOrderQuantity
     {
         public int UserOrderQuantityId { get; set; } //PRIMARY KEY

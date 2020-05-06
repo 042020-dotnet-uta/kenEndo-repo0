@@ -51,8 +51,6 @@ namespace Project0.OrderingFunc
                             .Where(x => x.StoreLocation.StoreLocationId == DisplayLocations.input1)
                             .First(x => x.StoreItemId == purchaseId); //stores the item selected, its location, its inventory into userPickedItem
                         userPickedItemInventory = userPickedItem.StoreItemInventory.itemInventory; //store the available inventory of the selected pet
-                        //userPickedItem = db.StoreItems.Where(x => x.StoreItemId == purchaseId) //store the user selected pet id, this will throw an exception if user input does not match database
-                        //     .Include(y => y.StoreItemInventory).ToList().First();///////////////////////////////////////////////////////////
                     }
                     catch(InvalidOperationException) //if any exceptions were caught, return to the start of the 'anotherBuy' while loop.
                     {
@@ -66,8 +64,9 @@ namespace Project0.OrderingFunc
                         Console.ReadLine();
                         continue; //when exception is caught, 'continue' allows this program to start over from 'anotherbuy' while loop again
                     }
-                    catch(Exception)
+                    catch(Exception e)
                     {
+                        Console.WriteLine(e);
                         Console.WriteLine("I don't know what you entered but please read, Please enter to try again");
                         Console.ReadLine();
                         continue; //when exception is caught, 'continue' allows this program to start over from 'anotherbuy' while loop again

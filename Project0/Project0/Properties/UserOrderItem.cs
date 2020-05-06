@@ -4,12 +4,13 @@ using System.Text;
 
 namespace Project0.Properties
 {
+    /// <summary>
+    /// Model for the item name of what user ordered
+    /// </summary>
     public class UserOrderItem
     {
-        public int UserOrderItemId { get; set; }
-        public virtual StoreItem StoreItem { get; set; }
-        public virtual UserOrder UserOrder { get; set; }
-
-
+        public int UserOrderItemId { get; set; } //Primary key
+        public virtual StoreItem StoreItem { get; set; } //RELATION TO STOREITEM
+        public virtual UserOrder UserOrder { get; set; } //RELATION TO USERORDER
     }
 }
