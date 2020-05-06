@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Project0;
-using Project0.Properties;
-using System;
 using System.Linq;
 using Xunit;
 
@@ -14,7 +12,7 @@ namespace Project0Test
         /// tests if it is stored correctly and retrievable
         /// </summary>
         [Fact]
-        public void AddsLocationToDb()
+        public void CheckAddsLocationToDbTestPersist()
         {
             //Test1
             //Arrange

@@ -13,9 +13,9 @@ namespace Project0.RegiAndLoginFunc
         {
             Console.Clear();
             Console.WriteLine("\nPlease enter your first name"); 
-            string fname = Console.ReadLine(); //stores first name
+            string fname = Console.ReadLine().ToLower(); //stores first name
             Console.WriteLine("\nPlease enter your last name");
-            string lname = Console.ReadLine(); //stores last name
+            string lname = Console.ReadLine().ToLower(); //stores last name
             Console.WriteLine("\nPlease register your username");
             string userName = Console.ReadLine(); //stores username
             Console.WriteLine("\nPlease enter your new password");

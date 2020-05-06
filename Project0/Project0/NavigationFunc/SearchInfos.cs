@@ -154,13 +154,13 @@ namespace Project0.NavigationFunc
             {
                     while (checking1) 
                     {
-                        Console.Clear();
-                        Console.WriteLine("\n**************************************************\n");
-                        Console.WriteLine("Please enter the first name of customer(Case sensitive)");
-                        string fName = Console.ReadLine();
-                        Console.WriteLine("\nPlease enter the last name of customer(Case sensitive)");
-                        string lName = Console.ReadLine();
-                        Console.WriteLine("\n**************************************************\n");
+                    Console.Clear();
+                    Console.WriteLine("\n**************************************************\n");
+                    Console.WriteLine("Please enter the first name of customer");
+                    string fName = Console.ReadLine().ToLower();
+                    Console.WriteLine("\nPlease enter the last name of customer");
+                    string lName = Console.ReadLine().ToLower();
+                    Console.WriteLine("\n**************************************************\n");
                     try
                     {
                         check = db.UserInfos.First(u => u.fName == fName && u.lName == lName); //checks if the user inputted name matches database
