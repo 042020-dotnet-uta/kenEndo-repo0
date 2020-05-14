@@ -29,7 +29,7 @@ namespace Project0.RegiAndLoginFunc
                 }
                 catch(InvalidOperationException) //checks for invalid operation exception
                 {
-                    Console.WriteLine("Wrong uassername or abcpassword, please enter try again");
+                    Console.WriteLine("Wrong username or password, please enter try again");
                     Console.ReadLine();
                     runLogin();
                 }
