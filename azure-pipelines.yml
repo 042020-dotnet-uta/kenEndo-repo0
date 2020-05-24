@@ -29,26 +29,31 @@ stages:
                 sonar.exclusions=**/obj/**,**/*.dll
                 sonar.branch.name=$(Build.SourceBranchName)
                 sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx
-                sonar.flex.cobertura.reportsPaths=$(Build.SourcesDirectory)/**/*.xml
+                sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/**/coverage.opencover.xml
           - script: dotnet build "Project0\Project0.sln"
-          - script: echo "Project built"
+            displayName: 'Build'
           - task: DotNetCoreCLI@2
             displayName: dotnet test
             inputs:
-              command: 'test'
-              arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
+              command: test
+              arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx'
               projects: '**/*Project0Test.csproj'
-              publishTestResults: true
-          - task: SonarCloudAnalyze@1
-          - task: SonarCloudPublish@1
-            inputs:
-              pollingTimeoutSec: '300'
-
+              nobuild: true
+          - script: 
+              dotnet tool install -g dotnet-reportgenerator-globaltool
+              reportgenerator "-reports:$(Build.SourcesDirectory)/**/coverage.opencover.xml" "-targetdir:$(Build.SourcesDirectory)/CodeCoverage" "-reporttypes:HtmlInline_AzurePipelines;Cobertura"
+            displayName: Create Code Coverage Report
           - task: PublishCodeCoverageResults@1
             displayName: 'Publish code coverage report'
             inputs:
               codeCoverageTool: 'Cobertura'
-              summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
-              
+              summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
+              reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
+          - task: SonarCloudAnalyze@1
+            continueOnError: false
+          - task: SonarCloudPublish@1
+            continueOnError: false
+            inputs:
+              pollingTimeoutSec: '300'            
           - script: dotnet publish "Project0\Project0.sln"
 
