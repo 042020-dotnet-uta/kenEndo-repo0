@@ -28,15 +28,15 @@ stages:
               extraProperties: 
                 sonar.exclusions=**/obj/**,**/*.dll
                 sonar.branch.name=$(Build.SourceBranchName)
+                sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/**/coverage.opencover.xml                
                 sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx
-                sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/**/coverage.opencover.xml
           - script: dotnet build "Project0\Project0.sln"
             displayName: 'Build'
           - task: DotNetCoreCLI@2
             displayName: dotnet test
             inputs:
               command: test
-              arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx'
+              arguments: '--configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx'
               projects: '**/*Project0Test.csproj'
               nobuild: true
           - task: SonarCloudAnalyze@1
@@ -50,6 +50,5 @@ stages:
             inputs:
               codeCoverageTool: 'Cobertura'
               summaryFileLocation: '$(Build.SourcesDirectory)/**/*.xml'
-              reportDirectory: '$(Build.SourcesDirectory)/coverage/Cobertura'
 
 
