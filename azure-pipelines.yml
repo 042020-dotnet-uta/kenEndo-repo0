@@ -40,9 +40,15 @@ stages:
               projects: '**/*Project0Test.csproj'
               nobuild: true
           - script: 
-              dotnet tool install -g dotnet-reportgenerator-globaltool --tool-path . 
+              dotnet tool install dotnet-reportgenerator-globaltool --tool-path . 
               ./reportgenerator "-reports:$(Build.SourcesDirectory)/coverage/coverage.opencover.xml" "-targetdir:coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart"
+            condition: eq( variables['Agent.OS'], 'Linux' )
             displayName: Create Code Coverage Report
+          - script: |
+              dotnet tool install dotnet-reportgenerator-globaltool --tool-path .
+              .\reportgenerator.exe "-reports:$(Build.SourcesDirectory)/coverage/coverage.opencover.xml" "-targetdir:coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart"
+            condition: eq( variables['Agent.OS'], 'Windows_NT' )
+            displayName: Run Reportgenerator on Windows
           - task: PublishCodeCoverageResults@1
             displayName: 'Publish code coverage report'
             inputs:
