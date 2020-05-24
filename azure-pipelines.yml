@@ -39,7 +39,7 @@ stages:
               arguments: '--configuration $(BuildConfiguration)
                 /p:CollectCoverage=true
                 /p:CoverletOutputFormat=opencover
-                /p:Coverletoutput=(Build.SourcesDirector)/TestResults/Coverage
+                /p:CoverletOutput=(Build.SourcesDirector)/TestResults/Coverage
                 --logger trx'
               projects: '**/*Project0Test.csproj'
               nobuild: true
