@@ -4,6 +4,8 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
 	<StartWorkingDirectory>$(MSBuildProjectDirectory)</StartWorkingDirectory>
+	  <DebugType>Full</DebugType>
+	  <ProjectGuid>{9942C877-ABB8-4FB9-B54B-F7F9B534AAAC}</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>
