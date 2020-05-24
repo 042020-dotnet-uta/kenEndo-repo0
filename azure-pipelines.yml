@@ -22,6 +22,13 @@ stages:
     jobs:
       - job: 'build'
         steps:
+          - task: SonarCloudPrepare@1
+            inputs:
+              SonarCloud: 'KensProject0'
+              organization: 'kenstestkey'
+              scannerMode: 'MSBuild'
+              projectKey: '0d21e1087fa69586dbafcf2bf09d229dcb40ca12'
+              projectName: 'Project0Test'
           - script: dotnet build "Project0\Project0.sln"
           - script: echo "Hey there $(instructor)!"
       - job: 'test'
