@@ -39,11 +39,13 @@ stages:
               arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
               publishTestResults: true
               projects: '**/*Project0Test.csproj'
+              nobuild: true
           - task: PublishCodeCoverageResults@1
             displayName: 'Publish code coverage report'
             inputs:
               codeCoverageTool: 'Cobertura'
               summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
+              reportDirectory: $(Build.SourcesDirectory)/CodeCoverage
           - task: SonarCloudAnalyze@1
           - task: SonarCloudPublish@1
             inputs:
