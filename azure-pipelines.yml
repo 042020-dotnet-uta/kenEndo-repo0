@@ -37,6 +37,7 @@ stages:
             inputs:
               command: 'test'
               arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=(Build.SourcesDirector)/TestResults/Coverage'
+              publishTestResults: true
               projects: '**/*Project0Test.csproj'
               nobuild: true
           - task: PublishCodeCoverageResults@1
