@@ -39,8 +39,9 @@ stages:
               arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/ --logger trx'
               projects: '**/*Project0Test.csproj'
               nobuild: true
-          - script: dotnet tool install dotnet-reportgenerator-globaltool –tool-path .
-              ./reportgenerator “-reports:$(Build.SourcesDirectory)/coverage/coverage.opencover.xml” “-targetdir:coverage/Cobertura” “-reporttypes:Cobertura;HTMLInline;HTMLChart”
+          - script: |
+              dotnet tool install dotnet-reportgenerator-globaltool --tool-path . 
+              ./reportgenerator "-reports:$(Build.SourcesDirectory)/coverage/coverage.opencover.xml" "-targetdir:coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart"
           - task: PublishCodeCoverageResults@1
             displayName: 'Publish code coverage report'
             inputs:
