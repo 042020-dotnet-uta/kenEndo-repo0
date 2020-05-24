@@ -39,15 +39,17 @@ stages:
               arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/ --logger trx'
               projects: '**/*Project0Test.csproj'
               nobuild: true
-          - task: SonarCloudAnalyze@1
-          - task: SonarCloudPublish@1
-            inputs:
-              pollingTimeoutSec: '300'
+          - script: dotnet tool install dotnet-reportgenerator-globaltool –tool-path .
+              ./reportgenerator “-reports:$(Build.SourcesDirectory)/coverage/coverage.opencover.xml” “-targetdir:coverage/Cobertura” “-reporttypes:Cobertura;HTMLInline;HTMLChart”
           - task: PublishCodeCoverageResults@1
             displayName: 'Publish code coverage report'
             inputs:
               codeCoverageTool: 'Cobertura'
               summaryFileLocation: '$(Build.SourcesDirectory)/**/*.xml'
+          - task: SonarCloudAnalyze@1
+          - task: SonarCloudPublish@1
+            inputs:
+              pollingTimeoutSec: '300'
               
           - script: dotnet publish "Project0\Project0.sln"
 
