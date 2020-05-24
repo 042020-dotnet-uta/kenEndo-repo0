@@ -36,7 +36,7 @@ stages:
             displayName: dotnet test
             inputs:
               command: 'test'
-              arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=(Build.SourcesDirector)/TestResults/Coverage'
+              arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=(Build.SourcesDirector)/TestResults/Coverage --logger trx'
               publishTestResults: true
               projects: '**/*Project0Test.csproj'
               nobuild: true
