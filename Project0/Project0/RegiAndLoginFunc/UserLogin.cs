@@ -19,7 +19,7 @@ namespace Project0.RegiAndLoginFunc
         public void runLogin()
         {
             AskInfo();   //runs the askinfo method
-        using(var db = new AppDbContext())
+            using (var db = new AppDbContext())
             {
                 try //this checks if the username and password matches anything in database
                 {
@@ -27,13 +27,13 @@ namespace Project0.RegiAndLoginFunc
                     Console.WriteLine("Success!\n Press Enter to go to the store page");
                     Console.ReadLine();
                 }
-                catch(InvalidOperationException) //checks for invalid operation exception
+                catch (InvalidOperationException) //checks for invalid operation exception
                 {
                     Console.WriteLine("Wrong username or password, please enter try again");
                     Console.ReadLine();
                     runLogin();
                 }
-                catch(Exception e) // checks for any other exceptions and display it
+                catch (Exception e) // checks for any other exceptions and display it
                 {
                     Console.WriteLine(e);
                     Console.WriteLine("Wrong username or password, please enter try again");
@@ -56,6 +56,15 @@ namespace Project0.RegiAndLoginFunc
             Console.WriteLine("\nPlease enter your password");
             _password = Console.ReadLine(); //stores password info
             Console.WriteLine("\n**************************************************\n");
+        }
+
+
+    }
+    public class Calculator
+    {
+        public int Add(int x, int y)
+        {
+            return x + y;
         }
     }
 }

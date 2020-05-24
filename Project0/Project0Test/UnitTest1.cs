@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Project0;
+using Project0.RegiAndLoginFunc;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using Xunit;
 
 namespace Project0Test
@@ -510,6 +512,13 @@ namespace Project0Test
             }
         }
 
+        [Fact]
+        public void testingAdd()
+        {
+            var x = new Calculator();
+            var y = x.Add(1, 2);
+            Assert.Equal(3, y);
+        }
 
     }
 }
