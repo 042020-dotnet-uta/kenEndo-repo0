@@ -49,13 +49,9 @@ stages:
               codeCoverageTool: 'Cobertura'
               summaryFileLocation: '$(Build.SourcesDirectory)**/*.xml'
               reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
-
           - task: SonarCloudAnalyze@1
           - task: SonarCloudPublish@1
             inputs:
               pollingTimeoutSec: '300'
           - script: dotnet publish "Project0\Project0.sln"
-              
-      
-
 name: '$(date:yyyyMMdd)$(rev:rr)'
