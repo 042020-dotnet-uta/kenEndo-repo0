@@ -36,15 +36,14 @@ stages:
             displayName: dotnet test
             inputs:
               command: 'test'
-              arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:Coverletoutput=$(Build.SourcesDirectory)/TestResults/coverage --logger trx'
+              arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/ --logger trx'
               projects: '**/*Project0Test.csproj'
-              publishTestResults: true
               nobuild: true
           - task: PublishCodeCoverageResults@1
             displayName: 'Publish code coverage report'
             inputs:
               codeCoverageTool: 'Cobertura'
-              summaryFileLocation: '$(Build.SourcesDirectory)**/*.xml'
+              summaryFileLocation: '$(Build.SourcesDirectory)/**/*.xml'
           - task: SonarCloudAnalyze@1
           - task: SonarCloudPublish@1
             inputs:
