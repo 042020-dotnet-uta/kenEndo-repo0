@@ -41,7 +41,7 @@ stages:
               nobuild: true
           - script: |
               dotnet tool install dotnet-reportgenerator-globaltool --tool-path . 
-              ./reportgenerator "-reports:$(Build.SourcesDirectory)/TestResults/coverage/coverage.opencover.xml" "-targetdir:TestResults/coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart"
+              ./reportgenerator "-reports:$(Build.SourcesDirectory)/**/*.xml" "-targetdir:coverage/Cobertura" "-reporttypes:Cobertura;HTMLInline;HTMLChart"
           - task: PublishCodeCoverageResults@1
             displayName: 'Publish code coverage report'
             inputs:
