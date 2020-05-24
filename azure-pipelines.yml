@@ -4,14 +4,10 @@
 # https://aka.ms/yaml
 
 trigger:
-  - 'master'
+  - master
 
 pool: 
   vmImage: 'ubuntu-latest'
-
-variables:
-- name: 'instructor'
-  value: 'Mark'
 
 #watch for PR's
 pr: 'none'
@@ -29,7 +25,11 @@ stages:
               scannerMode: 'MSBuild'
               projectKey: '0d21e1087fa69586dbafcf2bf09d229dcb40ca12'
               projectName: 'Project0Test'
-              extraProperties: 'sonar.exclusions=**/obj/**,**/*.dllsonar.branch.name=$(Build.SourceBranchName)sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trxsonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/**/*.xml'
+              extraProperties: 
+                sonar.exclusions=**/obj/**,**/*.dll
+                sonar.branch.name=$(Build.SourceBranchName)
+                sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx
+                sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/**/*.xml
           - script: dotnet build "Project0\Project0.sln"
           - script: echo "Project built"
           - task: DotNetCoreCLI@2
@@ -54,4 +54,4 @@ stages:
             inputs:
               pollingTimeoutSec: '300'
           - script: dotnet publish "Project0\Project0.sln"
-name: '$(date:yyyyMMdd)$(rev:rr)'
+
